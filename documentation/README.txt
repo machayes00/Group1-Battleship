@@ -18,7 +18,8 @@ that are 3.6 and higher are all likely to work.
 4. A list of all the files in the repository (?)
 
 so far just 4 files, Battleship-G1.py, README.txt, License, 
-and Credits.txt
+and Credits.txt. Probably delete Battleship-G1.py and 
+instead make multiple .py files?? Or is that C++ style?
 
 ______________________________________
 
