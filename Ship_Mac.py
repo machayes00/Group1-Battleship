@@ -39,7 +39,7 @@ class ship:
         return True
 
     def createship(self, array, startx, starty, orient, length):
-        if self.createbool(array, startx, starty, orient, length):
+        if self.createbool(self,array, startx, starty, orient, length):
             start=0
             self.shipspots=[]
             if orient == 'L':
