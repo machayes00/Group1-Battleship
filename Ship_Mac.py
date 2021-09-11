@@ -41,33 +41,38 @@ class ship:
     def createship(self, array, startx, starty, orient, length):
         if self.createbool(array, startx, starty, orient, length):
             start=0
+            self.shipspots=[]
             if orient == 'L':
                 while start < length:
                     array[starty][startx-start] = 'x'
+                    self.shipspots.append([starty][startx-start])
                     start=start+1
             elif orient == 'R':
                 while start < length:
                     array[starty][startx+start] = 'x'
+                    self.shipspots.append([starty][startx+start])
                     start=start+1
             elif orient == 'U':
                 while start < length:
                     array[starty-start][startx] = 'x'
+                    self.shipspots.append([starty-start][startx])
                     start=start+1
             elif orient == 'D':
                 while start < length:
                     array[starty+start][startx] = 'x'
+                    self.shipspots.append([starty+start][startx])
                     start=start+1
         
-    #def hit(self,array,startx,starty):
-    #   self.sunk=False
-    #    spot=startx+(starty*10)
-    #    self.shipspots.remove(spot)
-    #    print("HIT!")
-    #    if len(self.shipspots) == 0:
-    #        self.sunk=True
-    #def sinkcheck(self):
-    #    if self.sunk == True:
-    #        print("Ship is sunk!")
+    def hit(self,array,startx,starty):
+       self.sunk=False
+        spot=[starty][startx]
+        self.shipspots.remove(spot)
+        print("HIT!")
+        if len(self.shipspots) == 0:
+            self.sunk=True
+    def sinkcheck(self):
+        if self.sunk == True:
+            print("Ship is sunk!")
 #s=ship
 #arr=["o" for i in range(100)]
 #s.createship(s,arr,3,1,'R',2)
