@@ -32,39 +32,38 @@ class ship:
             if orient == "L":
                 while start < length:
                     array[(starty*10)+(startx-start)]='X'
-                    self.shipspots.append([(starty*10)+(startx-start)])
+                    self.shipspots.append((starty*10)+(startx-start))
                     start=start+1
             if orient == "R":
                 while start < length:
                     array[(starty*10)+(startx+start)]='X'
-                    self.shipspots.append([(starty*10)+(startx+start)])
+                    self.shipspots.append((starty*10)+(startx+start))
                     start=start+1
             if orient == "U":
                 while start < length:
                     array[startx+((starty-start)*10)] = "X"
-                    self.shipspots.append([startx+((starty-start)*10)])
+                    self.shipspots.append(startx+((starty-start)*10))
                     start=start+1
             if orient == "D":
                 while start < length:
                     array[startx+((starty+start)*10)] != "X"
-                    self.shipspots.append([startx+((starty+start)*10)])
+                    self.shipspots.append(startx+((starty+start)*10))
                     start=start+1        
     def hit(self,array,startx,starty):
-        spot=0
-        for x in self.shipspots:
-            if x == array[startx+(starty*10)]:
-                spot=x
-            self.shipspots.remove(x)
-            self.sunk=False
-            if len(self.shipspots) == 0:
-                self.sunk=True
+        self.sunk=False
+        spot=startx+(starty*10)
+        self.shipspots.remove(spot)
+        print("HIT!")
+        if len(self.shipspots) == 0:
+            self.sunk=True
     def sinkcheck(self):
         if self.sunk == True:
             print("Ship is sunk!")
 #s=ship
-#print("Hey")
 #arr=["o" for i in range(100)]
 #s.createship(s,arr,3,1,'R',2)
+#print(s.shipspots)
+#s.hit(s,arr,4,1)
 #s.hit(s,arr,3,1)
 #s.sinkcheck(s)
 #print(arr)
