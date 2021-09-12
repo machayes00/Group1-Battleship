@@ -5,6 +5,18 @@
 #ships on a game board for the game of battle ship
 #includes methods to create ship register hits and tell if ship is "sunk"
 class ship:
+
+    def __init__(self):
+        self.size = 1
+        self.shipspots = []
+        self.sunk = False
+
+
+    # The function of the code in the bool method below should be part of
+    # the executive that interacts with user; prints out query for input, check if acceptible,
+    # and if not, prints message to user to fix; once acceptable, executive passes start, orient and size to
+    # Board class, which calls the Ship constructor and then sets its coordinates.
+
     ##documentation for a method
     # @brief checks whether a ship of a certain size, place and orientation fits on a gameboard
     # @pre array is valid
@@ -55,39 +67,9 @@ class ship:
                     start=start+1
         return True
 
-    ##documentation for a method
-    # @brief creates a ship
-    # @pre array is valid
-    # @param array: in place of gameboard
-    # @param startx: x position in array
-    # @param starty: y position in array
-    # @param orient: orientation of ship(left, right, up, down)
-    # @param length: length of ship
-    # @post ship is placed
-    def createship(self, array, startx, starty, orient, length):
-        if self.createbool(array, startx, starty, orient, length): # Edina: deleted self from () because otherwise duplicate
-            start=0
-            self.shipspots=[]
-            if orient == ('L' or 'l'):
-                while start < length:
-                    array[starty][startx-start] = 'x'
-                    self.shipspots.append([starty][startx-start])
-                    start=start+1
-            elif orient == 'R':
-                while start < length:
-                    array[starty][startx+start] = 'x'
-                    self.shipspots.append([starty][startx+start])
-                    start=start+1
-            elif orient == 'U':
-                while start < length:
-                    array[starty-start][startx] = 'x'
-                    self.shipspots.append([starty-start][startx])
-                    start=start+1
-            elif orient == 'D':
-                while start < length:
-                    array[starty+start][startx] = 'x'
-                    self.shipspots.append([starty+start][startx])
-                    start=start+1
+    
+    # It is good to leve other methods here; Board can call them
+    # to check if ship is hit or not, and also if sunk or not
 
     ##documentation for a method
     # @brief "hits" spot on ship
@@ -96,11 +78,17 @@ class ship:
     # @param startx: x position in array
     # @param starty: y position in array
     # @post shipspot is removed as it has been hit   
-    def hit(self,array,startx,starty):  # Edina: array parameter was not used in this method; I added to spot
-        self.sunk=False
-        spot=array[starty][startx]
+    def hit(self, x, y):  
+        '''
+        I did not change this method but it needs fix. It just needs the coordinates
+        from the Ship member list of coordinates. The x and y parameters and passed in
+        from Board shot method.
+        '''
+        # self.sunk=False remove this since ship is initialized for sunk = False
+        # need to check if passed in x,y are in the list of shipspots and if so:
+        spot=(y,x) # method needs fix still
         self.shipspots.remove(spot)
-        print("HIT!")
+        print("HIT!") # executive would print HIT. This method just updates Ship object members.
         if len(self.shipspots) == 0:
             self.sunk=True
 
@@ -111,7 +99,7 @@ class ship:
         if self.sunk == True:
             print("Ship is sunk!")
 
-#Following lines are used for testing
+#Following lines were used for testing previous version
 #s=ship
 #arr=["o" for i in range(100)]
 #s.createship(s,arr,3,1,'R',2)
