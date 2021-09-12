@@ -12,7 +12,7 @@ class Board:
         """
         self.waterGrid = [['O' for y in range(10)] for x in range(9)] # initialize board to be all 'O'
         self.shipSpots = [] # initialize list of ships to be empty. The list is for placing ships
-        self.ships = [] # this is a list of ship objects. The will be called to determine which ship is hit, and update ship coord, sunk variables
+        self.ships = [] # this is a list of ship objects. They will be called to determine which ship is hit, and update ship coord, sunk variables
         self.shots = [] # initialize list of shot locations to be empty 
 
     def printBoard(self):
@@ -44,7 +44,12 @@ class Board:
         placement and if acceptable, pass in parameters (start, orient
         and length). This method will then determine the ship's coordinates and
         update the ships[] list that is a component of the Board object.
-        The method probably still has to be edited (I changed almost nothing)
+        The method probably still has to be edited (I changed almost nothing).
+
+        like it has to call Ship constructor,
+        for example 
+        ship1 = Ship()
+        and then change it to contain proper coordinates.
         '''
         start = 0
         if orient == ('L'):
@@ -68,12 +73,12 @@ class Board:
                 self.shipSpots.append([starty+start][startx])
                 start=start+1
 
-    def checkShots(self,y):
+    def checkShots(self, x, y):
         pass
         '''
         This obtains hit coordinates from user through the executive class.
         Then it updates the shots list that is a member or Board class.
-        It also Scalls ship.hit method on every ship in the board.ship list,
+        It also calls ship.hit method on every ship in the board.ship list,
         to determine if any of the ships are hit.
 
         Then also call ship.sinkcheck on each ship, and update that info,
