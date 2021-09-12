@@ -1,4 +1,4 @@
-#assume creation of 10x10 array board filled up with 'o'
+#assume creation of 9x10 array board filled up with 'o'
 #That array will be the game board
 
 ##documentaion for a class
@@ -8,14 +8,14 @@ class ship:
 
     def __init__(self):
         self.size = 1
-        self.shipspots = []
+        self.shipSpots = [] # this will be a list of tuples, initially empty
         self.sunk = False
 
 
     # The function of the code in the bool method below should be part of
     # the executive that interacts with user; prints out query for input, check if acceptible,
     # and if not, prints message to user to fix; once acceptable, executive passes start, orient and size to
-    # Board class, which calls the Ship constructor and then sets its coordinates.
+    # Board class, which calls the Ship constructor and then sets its coordinates in shipSpots.
 
     ##documentation for a method
     # @brief checks whether a ship of a certain size, place and orientation fits on a gameboard
@@ -68,7 +68,7 @@ class ship:
         return True
 
     
-    # It is good to leve other methods here; Board can call them
+    # It is good to leave other methods here; Board can call them
     # to check if ship is hit or not, and also if sunk or not
 
     ##documentation for a method
@@ -78,18 +78,18 @@ class ship:
     # @param startx: x position in array
     # @param starty: y position in array
     # @post shipspot is removed as it has been hit   
-    def hit(self, x, y):  
+    def hit(self, coordinates):  # a tuple with two members is passed in
         '''
         I did not change this method but it needs fix. It just needs the coordinates
         from the Ship member list of coordinates. The x and y parameters and passed in
         from Board shot method.
         '''
         # self.sunk=False remove this since ship is initialized for sunk = False
-        # need to check if passed in x,y are in the list of shipspots and if so:
-        spot=(y,x) # method needs fix still
-        self.shipspots.remove(spot)
+        # need to check if passed in (x,y) is in the list of shipspots and if so:
+        spot=coordinates # method needs fix still
+        self.shipSpots.remove(spot)
         print("HIT!") # executive would print HIT. This method just updates Ship object members.
-        if len(self.shipspots) == 0:
+        if len(self.shipSpots) == 0:
             self.sunk=True
 
     ##documentation for a method

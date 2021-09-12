@@ -19,8 +19,19 @@ class Board:
         """
         This method prints the waterGrid array with a border to mark coordinates
         (A-J for columns and 1-9 for rows). 
+
+        I think we need TWO of these methods, printMyBoard, printOpponentBoard??
+        Instruction #4 indicates that: players should be able to see their own board
+        and all their ships, and also of course the opponent's board because that helsp determine
+        where to fire (ships are hidden unless a spot is revealed via a hit). So 
+        the difference is:
+
+        printMyBoard shows all the ships, printOpponentBoard shows only locations shot at and
+        whether or not they hit a shipSpot. We do not need to mark on the board if the
+        ship is sunk or not (tho this is in the ship's bool variable) because the player knows.
+        Each ship is the same size (depending on the number of ships each player gets).
         """
-        gameBoard = [] # need to create by adding boarder to waterGrid.
+        gameBoard = [] # need to create by adding border to waterGrid.
         # But first:
         # waterGrid is updated as the game progresses, by createShip() and hits()
         # so original "O" is replaced with S for ship, * for hit, X for hit on a ship
@@ -73,15 +84,35 @@ class Board:
                 self.shipSpots.append([starty+start][startx])
                 start=start+1
 
-    def checkShots(self, x, y):
+    def checkShots(self, coordinate): 
         pass
         '''
         This obtains hit coordinates from user through the executive class.
-        Then it updates the shots list that is a member or Board class.
-        It also calls ship.hit method on every ship in the board.ship list,
-        to determine if any of the ships are hit.
+        The coordinates are passed in to this function as a tuple, (x,y).
 
-        Then also call ship.sinkcheck on each ship, and update that info,
-        and Return so executive can pass on the info to the player.
+        I think I can iterate thru a list of tuples and check for exact match, since tuples
+        are immutable and therefore considered as the same object if have same content, like
+        strings but unlike lists (I need to check on that tho)
 
+        The method then uses the board.ships list, to iterate thru the list of ships,
+        using a for loop; for each ship, the method will call ship.hit method from Ship class
+        to determine if the ship is hit, and if so, update the ship's ship.shipSpots list and 
+        if applicable, its ship.sunk bool.
+
+        In addition to updating all the ship objects in the board.ships list, the
+        method also updates the board.shots list. This if for the use of the printBoard
+        method, so the user can see all the shots.
+    
+        In other words it calls ship.hit method on every ship in the board.ship list,
+        to determine if any of the ships are hit. If so, it updates the ship's
+        member variables (size, and possibly its sunk bool).
+
+        
         '''
+
+    def score(self):
+        """
+        Either here (probably) or in executive, call ship.sinkcheck on each ship for each
+        player to keep track of how many sunk/unsunk ships each have. Execitive can call this method
+        and update the players and also end the game when a player wins.
+        """
