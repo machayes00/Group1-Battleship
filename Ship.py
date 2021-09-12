@@ -1,5 +1,6 @@
 #assume creation of 10x10 array board filled up with 'o'
 #That array will be the game board
+
 ##documentaion for a class
 #ships on a game board for the game of battle ship
 #includes methods to create ship register hits and tell if ship is "sunk"
@@ -13,7 +14,7 @@ class ship:
     # @param orient: orientation of ship(left, right, up, down)
     # @param length: length of ship
     # @post gives either true or false dependent on whether ship is placeable
-    def createbool(self,array,startx,starty,orient,length):
+    def createbool(self, array, startx, starty, orient, length):
         check=True
         start=0
         if(startx < 0 or startx > 9):
@@ -49,6 +50,7 @@ class ship:
                 else:
                     start=start+1
         return True
+
     ##documentation for a method
     # @brief creates a ship
     # @pre array is valid
@@ -59,7 +61,7 @@ class ship:
     # @param length: length of ship
     # @post ship is placed
     def createship(self, array, startx, starty, orient, length):
-        if self.createbool(self,array, startx, starty, orient, length):
+        if self.createbool(self, array, startx, starty, orient, length):
             start=0
             self.shipspots=[]
             if orient == 'L':
@@ -82,6 +84,7 @@ class ship:
                     array[starty+start][startx] = 'x'
                     self.shipspots.append([starty+start][startx])
                     start=start+1
+
     ##documentation for a method
     # @brief "hits" spot on ship
     # @pre array is valid
@@ -90,18 +93,20 @@ class ship:
     # @param starty: y position in array
     # @post shipspot is removed as it has been hit   
     def hit(self,array,startx,starty):
-       self.sunk=False
+        self.sunk=False
         spot=[starty][startx]
         self.shipspots.remove(spot)
         print("HIT!")
         if len(self.shipspots) == 0:
             self.sunk=True
+
     ##documentation for a method
     # @brief checks if ship is sunk
     # @post returns true if true false if false
     def sinkcheck(self):
         if self.sunk == True:
             print("Ship is sunk!")
+
 #s=ship
 #arr=["o" for i in range(100)]
 #s.createship(s,arr,3,1,'R',2)
