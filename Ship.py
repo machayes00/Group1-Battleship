@@ -61,7 +61,7 @@ class ship:
     # @param length: length of ship
     # @post ship is placed
     def createship(self, array, startx, starty, orient, length):
-        if self.createbool(self, array, startx, starty, orient, length):
+        if self.createbool(array, startx, starty, orient, length): # Edina: deleted self from () because otherwise duplicate
             start=0
             self.shipspots=[]
             if orient == 'L':
