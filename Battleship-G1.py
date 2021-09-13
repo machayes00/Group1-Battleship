@@ -45,7 +45,11 @@ def playGame():
     """
     This is the method for asking players to enter the coordinates
     for shooting at ships, and then calling the board.chedkShots method and 
-    the board.Score method
+    the board.Score method.
+    If this gets too complex, possibly make it a separate class,
+    with propertyies that include Player objects(?) But my suggestion is
+    to at least start it out in this file, in order to start simple and be able
+    to test an early form of the game, the minimal things.
     """
     pass
 
@@ -81,7 +85,7 @@ boardPlayer2 = Board()
 
 print('\nReady to set up the board for Player 2!\n')
 
-setup(boardPlayer1, numberShips)
+setup(boardPlayer2, numberShips)
 
 playGame()
 
