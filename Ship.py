@@ -4,11 +4,11 @@
 ##documentaion for a class
 #ships on a game board for the game of battle ship
 #includes methods to create ship register hits and tell if ship is "sunk"
-class ship:
+class Ship:
 
     def __init__(self):
         self.size = 1
-        self.shipSpots = [] # this will be a list of tuples, initially empty
+        self.shipCoordinates = [] # this will be a list of tuples, initially empty
         self.sunk = False
 
 
@@ -87,9 +87,9 @@ class ship:
         # self.sunk=False remove this since ship is initialized for sunk = False
         # need to check if passed in (x,y) is in the list of shipspots and if so:
         spot=coordinates # method needs fix still
-        self.shipSpots.remove(spot)
+        self.shipCoordinates.remove(spot)
         print("HIT!") # executive would print HIT. This method just updates Ship object members.
-        if len(self.shipSpots) == 0:
+        if len(self.shipCoordinates) == 0:
             self.sunk=True
 
     ##documentation for a method

@@ -11,8 +11,7 @@ class Board:
         shipSpots and shots, both of which are initialized to be empty.
         """
         self.waterGrid = [['O' for col in range(10)] for row in range(9)] # initialize board to be all 'O'
-        self.shipSpots = [] # initialize list of ship coordinates be empty. The list is for placing ships
-        self.ships = [] # this is a list of ship objects. They will be called to determine which ship is hit, and update ship coord, sunk variables
+        self.shipOjects = [] # this is a list of ship objects. They will be checked to determine which ship is hit, and update ship coord, sunk variables
         self.shots = [] # initialize list of shot locations to be empty 
 
     def printBoard(self):
@@ -76,27 +75,31 @@ class Board:
         ship1 = Ship()
         and then change it to contain proper coordinates.
         '''
+        newShip = Ship()
+        
         start = 0
         if orient == ('L'):
             while start < length:
-                self.waterGrid[starty][startx-start] = 'x'
-                self.shipSpots.append([starty][startx-start])
+                self.waterGrid[starty][startx-start] = 'S'
+                newShip.shipCoordinates.append([(starty, startx-start)])
                 start=start+1
         elif orient == 'R':
             while start < length:
-                self.waterGrid[starty][startx+start] = 'x'
-                self.shipSpots.append([starty][startx+start])
+                self.waterGrid[starty][startx+start] = 'S'
+                newShip.shipCoordinates.append([(starty, startx+start)])
                 start=start+1
         elif orient == 'U':
             while start < length:
-                self.waterGrid[starty-start][startx] = 'x'
-                self.shipSpots.append([starty-start][startx])
+                self.waterGrid[starty-start][startx] = 'S'
+                newShip.shipCoordinates.append([(starty-start, startx)])
                 start=start+1
         elif orient == 'D':
             while start < length:
-                self.waterGrid[starty+start][startx] = 'x'
-                self.shipSpots.append([starty+start][startx])
+                self.waterGrid[starty+start][startx] = 'S'
+                newShip.shipCoordinates.append([(starty+start, startx)])
                 start=start+1
+
+        return newShip
 
     def checkShots(self, coordinate): 
         pass
