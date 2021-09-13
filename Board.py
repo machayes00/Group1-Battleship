@@ -10,7 +10,7 @@ class Board:
         mark locations of hits. The S and * locations are obtained from two lists,
         ships and hits, both of which are initialized to be empty.
         """
-        self.waterGrid = [['O' for y in range(10)] for x in range(9)] # initialize board to be all 'O'
+        self.waterGrid = [['O' for col in range(10)] for row in range(9)] # initialize board to be all 'O'
         self.shipSpots = [] # initialize list of ships to be empty. The list is for placing ships
         self.ships = [] # this is a list of ship objects. They will be called to determine which ship is hit, and update ship coord, sunk variables
         self.shots = [] # initialize list of shot locations to be empty 
@@ -31,12 +31,26 @@ class Board:
         ship is sunk or not (tho this is in the ship's bool variable) because the player knows.
         Each ship is the same size (depending on the number of ships each player gets).
         """
-        gameBoard = [] # need to create by adding border to waterGrid.
-        # But first:
-        # waterGrid is updated as the game progresses, by createShip() and hits()
+        topOfBoard = [' ', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+        
+        # print top of board
+        for i in topOfBoard:
+            print(" ", end="")
+            print(i, "", end = "")
+        print()
+
+        # print the rest of the board
+        for row in range(9):
+            print(row+1, " ", end = " ")
+            for col in range(10):
+                print(self.waterGrid[row][col], " ", end = "")
+            print()
+
+ 
+        # waterGrid will be updated as the game progresses, by createShip() and hits()
         # so original "O" is replaced with S for ship, * for hit, X for hit on a ship
 
-        print(gameBoard)
+
 
     # Below method is copy pasted createShip from original Ship class.
     # Removed array param since it is waterGrid, part of self for Board class
