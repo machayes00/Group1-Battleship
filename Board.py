@@ -8,10 +8,10 @@ class Board:
         It contains a 2D array, waterGrid. Locations marked as '0' are water, 
         and these will be changed to S wherever there is a ship, and to * to 
         mark locations of hits. The S and * locations are obtained from two lists,
-        ships and hits, both of which are initialized to be empty.
+        shipSpots and shots, both of which are initialized to be empty.
         """
         self.waterGrid = [['O' for col in range(10)] for row in range(9)] # initialize board to be all 'O'
-        self.shipSpots = [] # initialize list of ships to be empty. The list is for placing ships
+        self.shipSpots = [] # initialize list of ship coordinates be empty. The list is for placing ships
         self.ships = [] # this is a list of ship objects. They will be called to determine which ship is hit, and update ship coord, sunk variables
         self.shots = [] # initialize list of shot locations to be empty 
 
