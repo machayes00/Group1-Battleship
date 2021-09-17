@@ -34,32 +34,39 @@ def setup(board, numberShips):
     """
 
     for i in range(numberShips):
+        start=0
+        #This could be changed to handle errors, but I don't really see the difference unless we catch type errors too
+        #so that's a possible continuation
+        while True:
+            startx = ord(input("\nWhat is the starting column of your ship?\n")) % 32
+            # a=97, b=98, ... A=65, B=66, ... so subtracting taking mod 32 should get the values we want
+            starty = input("\nWhat is the starting row of your ship?\n")
+            if 1 <= startx <= 10 and 1 <= starty <= 9:
+                break
+            else:
+                print("Invalid column and/or row number")
 
-        # make this a try-catch block to check acceptable arguments
-        startCol = input("\nWhat is the starting column of your ship?\n")
-        startRow = input("\nWhat is the starting row of your ship?\n")
+        
         print()
+        while True:
+            print('What is the orientation of this ship? Enter\n')
+            print('"L" for left of start (horizontal ship)\n')
+            print('"R" for right of start (horizontal ship)\n')
+            print('"U" for up from start (vertical ship)\n')
+            print('"D" for down from start (vertical ship)\n')
+            orient = input()
+            if orient == ('L' or 'l' or 'R' or 'r' or 'U' or 'u' or 'D' or 'd'):
+                break
+            else:
+                print("Invalid direction for ship")
 
-        # EDIT NEEDED: modify the startCol and starRow variables, after user
-        # input, so that they are indices for 2D waterGrid array.
-        # I like the idea from Alice & George planning file, to use a
-        # dictionary to covert coordinates to index numbers for
-        # waterGrid 2D array. Until we have that, pass in 2D index.
+        if(board.isShipValid()):
+            board.createShip(startx, starty, orient, numberShips)
+        
 
-        print('What is the orientation of this ship? Enter\n')
-        print('"L" for left of start (horizontal ship)\n')
-        print('"R" for right of start (horizontal ship)\n')
-        print('"U" for up from start (vertical ship)\n')
-        print('"D" for down from start (vertical ship)\n')
-
-        # try catch block, using code from Alex's and Mac's original Ship.py
-        # createBool. I fixed that to allow both upper case and lower case entry.
-
-        orient = input()
-
-        # Enters correct arguments, including conversion for start coordinates.
-        # This will update waterGrid for the next iteration of the for loop.
-        board.createShip(startCol, startRow, orient, numberShips)
+            # Enters correct arguments, including conversion for start coordinates.
+            # This will update waterGrid for the next iteration of the for loop.
+            
 
 ##  Documentation for playGame method
 #   @brief interacts with both players, and takes their inputs for shooting coordinates
