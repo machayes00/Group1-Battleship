@@ -1,5 +1,3 @@
-from Ship import *
-
 class Board:
 
     def __init__(self):
@@ -85,8 +83,6 @@ class Board:
                     start=start+1
         else:
             return True
-    # Below method is copy pasted createShip from original Ship class.
-    # Removed self.waterGrid param since it is waterGrid, part of self for Board class
 
     ##documentation for a method
     # @brief creates a ship
@@ -97,69 +93,27 @@ class Board:
     # @param length: length of ship
     # @post ship is placed
     def createShip(self, startx, starty, orient, length): 
-        '''
-        Executive will use current waterGrid to determine accepable ship 
-        placement and if acceptable, pass in parameters (start, orient
-        and length). This method will then determine the ship's coordinates and
-        update the ships[] list that is a component of the Board object.
-        The method probably still has to be edited (I changed almost nothing).
-
-        like it has to call Ship constructor,
-        for example 
-        ship1 = Ship()
-        and then change it to contain proper coordinates.
-        '''
-        newShip = Ship()
-        
         start = 0
         if orient == ('L'):
             while start < length:
-                self.waterGrid[starty][startx-start] = 'S'
-                newShip.shipCoordinates.append([(starty, startx-start)])
+                self.waterGrid[starty][startx-start] = length
                 start=start+1
         elif orient == 'R':
             while start < length:
-                self.waterGrid[starty][startx+start] = 'S'
-                newShip.shipCoordinates.append([(starty, startx+start)])
+                self.waterGrid[starty][startx+start] = length
                 start=start+1
         elif orient == 'U':
             while start < length:
-                self.waterGrid[starty-start][startx] = 'S'
-                newShip.shipCoordinates.append([(starty-start, startx)])
+                self.waterGrid[starty-start][startx] = length
                 start=start+1
         elif orient == 'D':
             while start < length:
-                self.waterGrid[starty+start][startx] = 'S'
-                newShip.shipCoordinates.append([(starty+start, startx)])
+                self.waterGrid[starty+start][startx] = length
                 start=start+1
 
-        return newShip
-
     def checkShots(self, coordinate): 
-        pass
-        '''
-        This obtains hit coordinates from user through the executive class.
-        The coordinates are passed in to this function as a tuple, (x,y).
-
-        I think I can iterate thru a list of tuples and check for exact match, since tuples
-        are immutable and therefore considered as the same object if have same content, like
-        strings but unlike lists (I need to check on that tho)
-
-        The method then uses the board.ships list, to iterate thru the list of ships,
-        using a for loop; for each ship, the method will call ship.hit method from Ship class
-        to determine if the ship is hit, and if so, update the ship's ship.shipSpots list and 
-        if applicable, its ship.sunk bool.
-
-        In addition to updating all the ship objects in the board.ships list, the
-        method also updates the board.shots list. This if for the use of the printBoard
-        method, so the user can see all the shots.
-    
-        In other words it calls ship.hit method on every ship in the board.ship list,
-        to determine if any of the ships are hit. If so, it updates the ship's
-        member variables (size, and possibly its sunk bool).
-
+        print('nothing')
         
-        '''
 
     def score(self):
         """
