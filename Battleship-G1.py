@@ -5,7 +5,7 @@ from Board import *
 Battleship-G1.py interacts with players to obtain values for the parameters
 for methods that set up the game boards, and then it interacts with players
 to obtain shooting coordinates while playing the game. It modifies the game 
-boards accoding to payer inputs.
+boards according to payer inputs.
 
 The program first obtains the number of ships (same for each player), then 
 sets up a board for each player, calling the setup() method for each player. 
@@ -28,13 +28,13 @@ choice = 0 # variable that allows quitting the game
 def setup(board, numberShips): 
     """!
     In addition to the code from createBool, need to add more checks using
-    the waterGrid Board property which this method should update
+    the waterGrid array from board, which this method should update
     with ship locations.
     """
 
     for i in range(numberShips):
         
-        # meke this a try-catch block to check acceptable arguments
+        # make this a try-catch block to check acceptable arguments
         startCol = input("\nWhat is the starting column of your ship?\n")
         startRow = input("\nWhat is the starting row of your ship?\n")
         print()
@@ -42,7 +42,7 @@ def setup(board, numberShips):
         # EDIT NEEDED: modify the startCol and starRow variables, after user
         # input, so that they are indices for 2D waterGrid array.
         # I like the idea from Alice & George planning file, to use a
-        # dictionary to covert coordidantes to index numbers for 
+        # dictionary to covert coordinates to index numbers for 
         # waterGrid 2D array. Until we have that, pass in 2D index.
 
 
@@ -57,7 +57,7 @@ def setup(board, numberShips):
 
         orient = input()
 
-        # Enters correct arguments, icluding conversion for start coordinates.
+        # Enters correct arguments, including conversion for start coordinates.
         # This will update waterGrid for the next iteration of the for loop.
         board.createShip(startCol, startRow, orient, numberShips) 
         
@@ -95,12 +95,12 @@ def playGame(boardPlayer1, boardPlayer2):
 # each time a new turn is taken. So, something like this presented by playGame each time a new
 # turn is taken:
 
-# print("\nPlese select an option:\n(1) Take a shot\n (2) Read rules\n(3) Quit game\n ")
+# print("\nPlease select an option:\n(1) Take a shot\n (2) Read rules\n(3) Quit game\n ")
 
 # Maybe printMenu should first print the player's own board, then the menu options, and if 
 # player selects to take s shot, pirnt the opponent's board.
 
-# But the menu shoud be short since it is presented repeatedly for each player at ever single turn.
+# But the menu should be short since it is presented repeatedly for each player at ever single turn.
 
 def printMenu():
     """!
@@ -131,9 +131,9 @@ def printMenu():
 
 
 # Ths next part starts the program.
-quit = 0 # variable for giving option to quit game or play again, once a game is over
+stopgame = 0 # variable for giving option to quit game or play again, once a game is over
 
-while quit == "n":
+while stopgame == 0:
 
     print('\n *** WELCOME TO BATTLESHIP!! ***\n')
     print()
@@ -145,7 +145,7 @@ while quit == "n":
     choice = 0 # bool for marking acceptable choice for numberShips
     while choice == 0:
         print('How many ships per player for this game?\n')
-        print('Ener a number from 1 to 6:\n')
+        print('Enter a number from 1 to 6:\n')
         numberShips = int(input())
         if numberShips == 1 or 2 or 3 or 4 or 5 or 6:
             choice = 1
@@ -179,7 +179,7 @@ while quit == "n":
     print('Enter "Y" for yes, "N" for no:\n')
     choice = input()
     if input == "Y" or "y":
-        quit = 1
+        stopgame = 1
 
 
 
