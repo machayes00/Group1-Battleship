@@ -5,18 +5,18 @@ class Board:
     def __init__(self):
         """
         This constructs the full board, initialized to be empty of ships. 
-        It contains a 2D array, waterGrid. Locations marked as '0' are water, 
+        It contains a 2D self.waterGrid, waterGrid. Locations marked as '0' are water, 
         and these will be changed to S wherever there is a ship, and to * to 
         mark locations of hits. The S and * locations are obtained from two lists,
         shipSpots and shots, both of which are initialized to be empty.
         """
-        self.waterGrid = [['O' for col in range(10)] for row in range(9)] # initialize board to be all 'O'
+        self.waterGrid = [['O' for col in range(9)] for row in range(8)] # initialize board to be all 'O'
         self.shipOjects = [] # this is a list of ship objects. They will be checked to determine which ship is hit, and update ship coord, sunk variables
         self.shots = [] # initialize list of shot locations to be empty 
 
     def printBoard(self):
         """
-        This method prints the waterGrid array with a border to mark coordinates
+        This method prints the waterGrid self.waterGrid with a border to mark coordinates
         (A-J for columns and 1-9 for rows). 
 
         I think we need TWO of these methods, printMyBoard, printOpponentBoard??
@@ -48,16 +48,50 @@ class Board:
  
         # waterGrid will be updated as the game progresses, by createShip() and hits()
         # so original "O" is replaced with S for ship, * for hit, X for hit on a ship
-
-
-
+        
+    ##documentation for a method
+    # @brief checks if ship placement would be valid
+    # @param startx: x position in self.waterGrid
+    # @param starty: y position in self.waterGrid
+    # @param orient: orientation of ship orientation of ship:
+    #       (L=left of start, R=right of start, U=up from start, D=down from start)
+    # @param length: length of ship
+    # @post returns true if ship placement works
+    def isShipValid(self, orient, startx, starty, length):
+        start = 0
+        if orient == ('L' or 'l'):
+            while start < length:
+                if self.waterGrid[starty][startx-start] != ' ':
+                    return(False)
+                else:
+                    start=start+1
+        elif orient == ('R' or 'r'):
+            while start < length:
+                if self.waterGrid[starty][startx+start] != ' ':
+                    return(False)
+                else:
+                    start=start+1
+        elif orient == ('U' or 'u'):
+            while start < length:
+                if self.waterGrid[starty-start][startx] != ' ':
+                    return(False)
+                else:
+                    start=start+1
+        elif orient == ('D' or 'd'):
+            while start < length:
+                if self.waterGrid[starty+start][startx] != ' ':
+                    return False
+                else:
+                    start=start+1
+        else:
+            return True
     # Below method is copy pasted createShip from original Ship class.
-    # Removed array param since it is waterGrid, part of self for Board class
+    # Removed self.waterGrid param since it is waterGrid, part of self for Board class
 
     ##documentation for a method
     # @brief creates a ship
-    # @param startx: x position in array
-    # @param starty: y position in array
+    # @param startx: x position in self.waterGrid
+    # @param starty: y position in self.waterGrid
     # @param orient: orientation of ship orientation of ship:
     #       (L=left of start, R=right of start, U=up from start, D=down from start)
     # @param length: length of ship
