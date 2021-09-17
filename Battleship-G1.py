@@ -1,5 +1,7 @@
 # Import class methods needed for the program
+#Note: Comments starting with G made by George
 from Board import *
+
 
 '''
 Battleship-G1.py interacts with players to obtain values for the parameters
@@ -24,8 +26,6 @@ program that sets up and plays the game.
 #   @pre board object must have correct properties; numberShips must be
 #       in the proper range, 1 to 6
 #   @post the input board object is modified according to user input
-
-
 def setup(board, numberShips):
     """!
     In addition to the code from createBool, need to add more checks using
@@ -67,8 +67,6 @@ def setup(board, numberShips):
 #   @param boardPlayer2 is a Board object bodified by the setup() method
 #   @pre appropriate Board objects must be passed in, after setup() modification
 #   @post
-
-
 def playGame(boardPlayer1, boardPlayer2):
     """
     This is the method for asking players to enter the coordinates
@@ -99,8 +97,9 @@ def playGame(boardPlayer1, boardPlayer2):
 
 # print("\nPlease select an option:\n(1) Take a shot\n (2) Read rules\n(3) Quit game\n ")
 
-# Maybe printMenu should first print the player's own board, then the menu options, and if
-# player selects to take s shot, pirnt the opponent's board.
+# Maybe printMenu should first print the player's own board by calling the appropriate printBoard
+# method from Board class, then print the menu options, and if player selects to take s shot, 
+# then pirnt the opponent's board.
 
 # But the menu should be short since it is presented repeatedly for each player at ever single turn.
 
@@ -143,7 +142,7 @@ while stopgame == 0:
     # Maybe add instructions from George's printMenu here. But our Project 1 instructions
     # stated that the game should be "obvious" and not need much instrucion. So maybe
     # it is better if the short prompts for user input, plus feedback to user, will let
-    # the user understand the game, without printing lengthy instrucitons.
+    # the user understand the game. 
 
     choice = 0  # bool for marking acceptable choice for numberShips
     while choice == 0:
