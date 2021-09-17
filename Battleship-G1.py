@@ -1,5 +1,9 @@
 # Import class methods needed for the program
+#Note: Comments starting with G made by George
 from Board import *
+from Ship import *
+player1 = "Player1"
+player2 = "Player2"
 
 '''
 Battleship-G1.py interacts with players to obtain values for the parameters
@@ -31,6 +35,9 @@ def setup(board, numberShips):
     the waterGrid array from board, which this method should update
     with ship locations.
     """
+    
+    
+       
 
     for i in range(numberShips):
         
