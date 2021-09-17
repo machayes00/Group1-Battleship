@@ -1,9 +1,5 @@
 # Import class methods needed for the program
-#Note: Comments starting with G made by George
 from Board import *
-from Ship import *
-player1 = "Player1"
-player2 = "Player2"
 
 '''
 Battleship-G1.py interacts with players to obtain values for the parameters
@@ -20,27 +16,25 @@ board.
 The top part of this file lists all the methods, and this is followed by the
 program that sets up and plays the game.
 '''
-choice = 0 # variable that allows quitting the game
 
 ##  Documentation for setup method
 #   @brief Interacts with player to set up a board with ships for a player
 #   @param board is a Board object for a player
 #   @param numberShips is an int, same for 2 players
-#   @pre board object must have correct properties; numberShips must be 
+#   @pre board object must have correct properties; numberShips must be
 #       in the proper range, 1 to 6
 #   @post the input board object is modified according to user input
-def setup(board, numberShips): 
+
+
+def setup(board, numberShips):
     """!
     In addition to the code from createBool, need to add more checks using
     the waterGrid array from board, which this method should update
     with ship locations.
     """
-    
-    
-       
 
     for i in range(numberShips):
-        
+
         # make this a try-catch block to check acceptable arguments
         startCol = input("\nWhat is the starting column of your ship?\n")
         startRow = input("\nWhat is the starting row of your ship?\n")
@@ -49,9 +43,8 @@ def setup(board, numberShips):
         # EDIT NEEDED: modify the startCol and starRow variables, after user
         # input, so that they are indices for 2D waterGrid array.
         # I like the idea from Alice & George planning file, to use a
-        # dictionary to covert coordinates to index numbers for 
+        # dictionary to covert coordinates to index numbers for
         # waterGrid 2D array. Until we have that, pass in 2D index.
-
 
         print('What is the orientation of this ship? Enter\n')
         print('"L" for left of start (horizontal ship)\n')
@@ -66,14 +59,16 @@ def setup(board, numberShips):
 
         # Enters correct arguments, including conversion for start coordinates.
         # This will update waterGrid for the next iteration of the for loop.
-        board.createShip(startCol, startRow, orient, numberShips) 
-        
+        board.createShip(startCol, startRow, orient, numberShips)
+
 ##  Documentation for playGame method
 #   @brief interacts with both players, and takes their inputs for shooting coordinates
 #   @param boardPlayer1 is a Board object bodified by the setup() method
 #   @param boardPlayer2 is a Board object bodified by the setup() method
 #   @pre appropriate Board objects must be passed in, after setup() modification
-#   @post 
+#   @post
+
+
 def playGame(boardPlayer1, boardPlayer2):
     """
     This is the method for asking players to enter the coordinates
@@ -92,10 +87,10 @@ def playGame(boardPlayer1, boardPlayer2):
     printMenu()
     pass
 
-#G: made a simple little menu, doesn't do anything right now. Used a while loop 
+#G: made a simple little menu, doesn't do anything right now. Used a while loop
 # instead of a do-while because do-while loops don't exist in python
 # Edina: did not change anything at all in George's print menu. I like how the instructions are not
-# printed unless a player asks to see them. But what I was thinking is to have a menu that prints 
+# printed unless a player asks to see them. But what I was thinking is to have a menu that prints
 # options repeatedly while the game is played. The idea is to have this method
 # be called by the playGame() method between each turn. Something simple. We could also
 # add a menu option to print boards but maybe a better idea is to have them print automatically
@@ -104,17 +99,18 @@ def playGame(boardPlayer1, boardPlayer2):
 
 # print("\nPlease select an option:\n(1) Take a shot\n (2) Read rules\n(3) Quit game\n ")
 
-# Maybe printMenu should first print the player's own board, then the menu options, and if 
+# Maybe printMenu should first print the player's own board, then the menu options, and if
 # player selects to take s shot, pirnt the opponent's board.
 
 # But the menu should be short since it is presented repeatedly for each player at ever single turn.
+
 
 def printMenu():
     """!
     Print menu items for users, like option to print boards (or make
     that automatic as part of the setup?)  Also, option to quit, etc.
     """
-    choice = 0 
+    choice = 0
     while (choice != 3):
         print("\nWelcome to Battleship! Select option 1 to start the game!\n1)Play Game\n2)Rules \n3)Quit")
         choice = int(input())
@@ -138,18 +134,18 @@ def printMenu():
 
 
 # Ths next part starts the program.
-stopgame = 0 # variable for giving option to quit game or play again, once a game is over
+stopgame = 0  # variable for giving option to quit game or play again, once a game is over
 
 while stopgame == 0:
 
     print('\n *** WELCOME TO BATTLESHIP!! ***\n')
     print()
     # Maybe add instructions from George's printMenu here. But our Project 1 instructions
-    # stated that the game should be "obvious" and not need much instrucion. So maybe 
-    # it is better if the short prompts for user input, plus feedback to user, will let 
+    # stated that the game should be "obvious" and not need much instrucion. So maybe
+    # it is better if the short prompts for user input, plus feedback to user, will let
     # the user understand the game, without printing lengthy instrucitons.
 
-    choice = 0 # bool for marking acceptable choice for numberShips
+    choice = 0  # bool for marking acceptable choice for numberShips
     while choice == 0:
         print('How many ships per player for this game?\n')
         print('Enter a number from 1 to 6:\n')
@@ -159,13 +155,12 @@ while stopgame == 0:
         else:
             print("Please enter a valid ship number.\n")
 
-
     # Create a board object for player 1
     boardPlayer1 = Board()
 
     print('\nReady to set up the board for Player 1!\n')
 
-    # This step runs the setup method for Player 1. The method modifies 
+    # This step runs the setup method for Player 1. The method modifies
     # the waterGrid 2D array of boardPlayer1.
     setup(boardPlayer1, numberShips)
 
@@ -187,14 +182,3 @@ while stopgame == 0:
     choice = input()
     if input == "Y" or "y":
         stopgame = 1
-
-
-
-
-
-
-
-
-
-
-
