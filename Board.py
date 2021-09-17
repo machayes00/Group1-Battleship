@@ -91,7 +91,7 @@ class Board:
     # @param orient: orientation of ship orientation of ship:
     #       (L=left of start, R=right of start, U=up from start, D=down from start)
     # @param length: length of ship
-    # @post ship is placed
+    # @post none
     def createShip(self, startx, starty, orient, length): 
         start = 0
         if orient == ('L'):
@@ -111,9 +111,10 @@ class Board:
                 self.waterGrid[starty+start][startx] = length
                 start=start+1
 
-    def checkShots(self, coordinate): 
-        print('nothing')
-        
+    def hit(self, x, y):
+        for x in range(5):
+            return(self.waterGrid[y][x] == x+1)
+
 
     def score(self):
         """
