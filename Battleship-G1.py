@@ -142,10 +142,16 @@ while quit == "n":
     # it is better if the short prompts for user input, plus feedback to user, will let 
     # the user understand the game, without printing lengthy instrucitons.
 
-    print('How many ships per player for this game?\n')
-    print('Ener a number from 1 to 6:\n')
-    # try-catch block or if-else to confirm good entry
-    numberShips = int(input())
+    choice = 0 # bool for marking acceptable choice for numberShips
+    while choice == 0:
+        print('How many ships per player for this game?\n')
+        print('Ener a number from 1 to 6:\n')
+        numberShips = int(input())
+        if numberShips == 1 or 2 or 3 or 4 or 5 or 6:
+            choice = 1
+        else:
+            print("Please enter a valid ship number.\n")
+
 
     # Create a board object for player 1
     boardPlayer1 = Board()
