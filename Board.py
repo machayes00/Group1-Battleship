@@ -1,5 +1,6 @@
 class Board:
 
+    # Constructor
     def __init__(self):
         """
         This constructs the full board, initialized to be empty of ships. 
@@ -8,9 +9,17 @@ class Board:
         mark locations of hits. The S and * locations are obtained from two lists,
         shipSpots and shots, both of which are initialized to be empty.
         """
-        self.waterGrid = [['O' for col in range(9)] for row in range(8)] # initialize board to be all 'O'
-        self.shipOjects = [] # this is a list of ship objects. They will be checked to determine which ship is hit, and update ship coord, sunk variables
-        self.shots = [] # initialize list of shot locations to be empty 
+        self.waterGrid = [['O' for col in range(10)] for row in range(9)] # initialize board to be all 'O'
+        # Edina: I commented out Ship objects list since we no longer have Ship objects (for now at least)
+        # self.shipOjects = [] this was a list of ship objects. They will be checked to determine which ship is hit, and update ship coord, sunk variables
+
+        # Edina: I also do not think we need a list of shots anymore. Simply change the waterGrid when it is shot at.
+        # I commented out since neither Alex nor Mac are using it.
+        # self.shots = [] # initialize list of shot locations to be empty 
+
+        # We can think of additinal useful properties to add to board.
+        # for example, number of ships, which can be passed in from setup() menu
+        # and adujsted by a hit method that checks number of ships remaining.
 
     def printBoard(self):
         """
@@ -45,9 +54,15 @@ class Board:
 
  
         # waterGrid will be updated as the game progresses, by createShip() and hits()
-        # so original "O" is replaced with S for ship, * for hit, X for hit on a ship
-        
-    ##documentation for a method
+        # so original "O" is replaced with a number for ship, * for hit, X for hit on a ship
+
+    # Edina: Mac inocrporated the purpose of the following bool method in setup() so
+    # probably it is no longer needed but it does not harm anything to keep here in 
+    # case we can adopt it and modify for a different use.
+    # Alex also has this method, extensively modified in Friday's pull request
+    # So we have 2 versions of a bool that we are not yet using.
+
+    ##documentation for isShipValid method
     # @brief checks if ship placement would be valid
     # @param startx: x position in self.waterGrid
     # @param starty: y position in self.waterGrid
@@ -84,41 +99,66 @@ class Board:
         else:
             return True
 
-    ##documentation for a method
-    # @brief creates a ship
-    # @param startx: x position in self.waterGrid
-    # @param starty: y position in self.waterGrid
+    # Edina: added count parameter, and changed to add whatever
+    # this number is, to waterGrid as the ship is being added.
+    # Like all parameters, the number is passed in from setup()
+    # and when this method runs, setup can refresh count for the
+    ##documentation for createShip method
+    # @brief places a ship on the waterGrid array.
+    # @param startx: x position in self.waterGrid (column index)
+    # @param starty: y position in self.waterGrid (row index)
     # @param orient: orientation of ship orientation of ship:
     #       (L=left of start, R=right of start, U=up from start, D=down from start)
     # @param length: length of ship
     # @post none
-    def createShip(self, startx, starty, orient, length): 
+    def createShip(self, startx, starty, orient, length, shipnumber): 
         start = 0
         if orient == ('L'):
             while start < length:
-                self.waterGrid[starty][startx-start] = length
+                self.waterGrid[starty][startx-start] = shipnumber
                 start=start+1
         elif orient == 'R':
             while start < length:
-                self.waterGrid[starty][startx+start] = length
+                self.waterGrid[starty][startx+start] = shipnumber
                 start=start+1
         elif orient == 'U':
             while start < length:
-                self.waterGrid[starty-start][startx] = length
+                self.waterGrid[starty-start][startx] = shipnumber
                 start=start+1
         elif orient == 'D':
             while start < length:
-                self.waterGrid[starty+start][startx] = length
+                self.waterGrid[starty+start][startx] = shipnumber
                 start=start+1
 
+# Edina: commented out older version of hit method because Alex updated.
+# I pasted in his update; I did not check either method yet but neither can do
+# any harm to the rest of the program so they can be merged
+'''
     def hit(self, x, y):
         for x in range(5):
             return(self.waterGrid[y][x] == x+1)
+'''
 
-
-    def score(self):
-        """
-        Either here (probably) or in executive, call ship.sinkcheck on each ship for each
-        player to keep track of how many sunk/unsunk ships each have. Execitive can call this method
-        and update the players and also end the game when a player wins.
-        """
+def hit(self, y, x):
+    row = len(self.shipObjects)
+    temp = self.spots
+    for z in range(row):
+        for w in range(len(self.shipObjects[z])):
+            if self.shipObjects[z][w] == (y, x):
+                self.waterGrid[y][x] = "x"
+                self.spots = self.spots-1
+                self.shiplengths[z] = self.shiplengths[z]-1
+                if self.shiplengths[z] == 0:
+                    print("Ship is sunk!")
+                    self.points = self.points-1
+    if temp == self.spots:
+        self.waterGrid[y][x] = "m"
+def score(self, opp):
+    print("Player Ships Remaining:"+str(self.points))
+    print("Opponent Ships Remaining:"+str(opp.points))
+    if self.points == 0:
+        print("You Lost!")
+        self.allsunk = True
+    elif opp.points == 0:
+        print("You Won!")
+        opp.allsunk = False
