@@ -87,7 +87,7 @@ def playGame(boardPlayer1, boardPlayer2):
 
 
     # Print menu (see next method) will print between each shoot
-    printMenu(boardPlayer1, boardPlayer1)
+    printMenu(boardPlayer1, boardPlayer2)
     pass
 
 #G: made a simple little menu, doesn't do anything right now. Used a while loop
@@ -142,7 +142,7 @@ def printMenu(board1, board2):
         print("Please select a menu option:\n") # Added by Edina.
         # Edina note: probably need to add in option to hide boards,
         # to prepare for next player.I don't think we can make a call
-        # to terminal to hide stuff, so maybe print a long horizontal
+        # to terminal to hide stuff, so maybe print a long vertical
         # line of stars, to hide boards.
         print("\n1) Take a Shot!\n2) Read rules \n3) Quit game")
 
