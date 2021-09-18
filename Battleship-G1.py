@@ -40,11 +40,11 @@ def setup(board, numberShips):
         while True:
             startx = ord(input("\nWhat is the starting column of your ship?\n")) % 32
             # a=97, b=98, ... A=65, B=66, ... so subtracting taking mod 32 should get the values we want
-            starty = input("\nWhat is the starting row of your ship?\n")
+            starty = int(input("\nWhat is the starting row of your ship?\n"))
             if 1 <= startx <= 10 and 1 <= starty <= 9:
                 break
             else:
-                print("Invalid column and/or row number")
+                print("\nInvalid column and/or row number\n")
 
         
         print()
@@ -84,12 +84,10 @@ def playGame(boardPlayer1, boardPlayer2):
     to at least start it out in this file, in order to start simple and be able
     to test an early form of the game, the minimal things.
     """
-    # not sure these variables are needed; depends on how playGame is designed
-    player1 = "Player 1 "
-    player2 = "Player 2 "
+
 
     # Print menu (see next method) will print between each shoot
-    printMenu()
+    printMenu(boardPlayer1, boardPlayer1)
     pass
 
 #G: made a simple little menu, doesn't do anything right now. Used a while loop
@@ -110,19 +108,54 @@ def playGame(boardPlayer1, boardPlayer2):
 
 # But the menu should be short since it is presented repeatedly for each player at ever single turn.
 
-
-def printMenu():
+# Edina: I added in some of Alex's changes to printMenu
+# His method made use of the Board objects as arguments but these were not included
+# in the function signature so I added them -- it is the only change I made to his mod of the f'n
+# The idea is, when this funcion is called, boardPlayer1 and boardPlayer2
+# can be passed in, which allows calling printBoard methods on them, within
+# the printMenu function
+# So to call this function in playGame, you have to type:
+# printMenu(boardPlayer1, boardPlayer2)
+def printMenu(board1, board2): 
     """!
     Print menu items for users, like option to print boards (or make
     that automatic as part of the setup?)  Also, option to quit, etc.
     """
+    
     choice = 0
-    while (choice != 3):
-        print("\nWelcome to Battleship! Select option 1 to start the game!\n1)Play Game\n2)Rules \n3)Quit")
-        choice = int(input())
+    # The next lines were added by Alex
+    turn = 1 
+    while (choice != 3): 
+        #Alex: There should be an addition to this while loop here checking if all ships are sunk on either side
+        #Edina: while loops including for printMenu should be outside, in playGame
+        if turn % 2 == 1:
+            print("OPPONENT BOARD:")
+            #method to print "hidden" version of boardPlayer2
+            print("\nPLAYER BOARD:")
+            board1.printBoard()
+        elif turn % 2 == 0:
+            print("OPPONENT BOARD:")
+            #method to print "hidden" version of boardPlayer1
+            print("\nPLAYER BOARD:")
+            board2.printBoard()
+
+        print("Please select a menu option:\n") # Added by Edina.
+        # Edina note: probably need to add in option to hide boards,
+        # to prepare for next player.I don't think we can make a call
+        # to terminal to hide stuff, so maybe print a long horizontal
+        # line of stars, to hide boards.
+        print("\n1) Take a Shot!\n2) Read rules \n3) Quit game")
+
+        # Edina: Alex's mod of the printMenu had lines of code
+        # asking for shooting coordinates, but those lines belong in 
+        # playGame, not in a print menu. printMenu is called by playGame,
+        # takes in user choice and returns that choice to the playGame f'n.
+        # So for now the rest of the print menu is from George's original version
+        # which probably needs modifications still -- I did not disturb it
+        # except for choice 1 (to fit Alex's mod) but I added some comments
         if(choice == 1):
-            playGame(boardPlayer1, boardPlayer2)
-            print("Would you like to play again?")
+            return (1) # return this choice to playGame and start shootin')
+            # with this choice returned to playGame, it could call a shoot method
 
         elif(choice == 2):
             print("-----------------------------------------------------------------------------------------------------------------------------------------------Rules of Battleship-----------------------------------------------------------------------------------------------------------------------------------------------\n")
@@ -135,8 +168,9 @@ def printMenu():
                 "5)As the great Colonel Sanders once said \"I'm too drunk to taste this fried chicken. \"\n ")
         elif(choice == 3):
             print("\nGoodbye...")
+            return(3) # added by Edina; return this to playGame which called printMenu
         else:
-            print("Sorry invalid choice please pick again.\n")
+            print("Sorry, invalid choice! Please pick again.\n")
 
 
 # Ths next part starts the program.
@@ -186,5 +220,5 @@ while stopgame == 0:
     print("\nWould you like to play another game?\n")
     print('Enter "Y" for yes, "N" for no:\n')
     choice = input()
-    if input == "Y" or "y":
+    if input == "N" or "n":
         stopgame = 1
