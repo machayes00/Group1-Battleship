@@ -142,17 +142,18 @@ class Board:
                     self.oppGrid[y][x] = "x"
                     self.spots=self.spots-1
                     self.shiplengths[z]=self.shiplengths[z]-1
+                    print("HIT!")
                     if self.shiplengths[z] == 0:
                         print("Ship is sunk!")
                         self.points=self.points-1
         if temp == self.spots:
             self.oppGrid[y][x] = "m"
     def score(self,opp):
-        print("Player Ships Remaining:"+str(self.points))
-        print("Opponent Ships Remaining:"+str(opp.points))
+        print("Player 1 Ships Remaining:"+str(self.points))
+        print("Player 2 Ships Remaining:"+str(opp.points))
         if self.points == 0:
-            print("Player 1 Won!")
+            print("Player 2 Won!")
             self.allsunk=True
         elif opp.points == 0:
-            print("Player 2 Won!")
+            print("Player 1 Won!")
             opp.allsunk=False
