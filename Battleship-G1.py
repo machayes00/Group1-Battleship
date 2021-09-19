@@ -6,12 +6,11 @@ from Board import *
 '''
 Battleship-G1.py interacts with players to obtain values for the parameters
 for methods that set up the game boards, and then it interacts with players
-to obtain shooting coordinates while playing the game. It modifies the game 
+to obtain shooting coordinates while playing the game. It modifies the game
 boards according to payer inputs.
-
-The program first obtains the number of ships (same for each player), then 
-sets up a board for each player, calling the setup() method for each player. 
-Once setup completes, the program calls the playGame() method, which interacts 
+The program first obtains the number of ships (same for each player), then
+sets up a board for each player, calling the setup() method for each player.
+Once setup completes, the program calls the playGame() method, which interacts
 with players while they are taking shots trying to hit ships on the opponent's
 board.
 
@@ -37,7 +36,7 @@ def setup(board, numberShips):
     symbol = numberShips # this will be updated in the for loop, so different for each ship'
     for i in range(numberShips):
         start=0
-        
+
         #This could be changed to handle excetions, but I don't really see the difference unless we catch type errors too
         #so that's a possible continuation
         while True:
@@ -50,12 +49,16 @@ def setup(board, numberShips):
                 print("\nInvalid column and/or row number\n")
 
         print()
+
+        orientation = {'L', 'R', 'U', 'D', 'l', 'r', 'u', 'd'}
+        ooo = {"H", 'h', 'V', 'v'}
         while True:
-            print('What is the orientation of this ship? Enter\n')
-            print('"L" for left of start (horizontal ship)\n')
-            print('"R" for right of start (horizontal ship)\n')
-            print('"U" for up from start (vertical ship)\n')
-            print('"D" for down from start (vertical ship)\n')
+            print("Enter the orientation of ship (H|h for horizontal, V|v for vertical)", i, '\n')
+            # print("Please enter the starting row for you ship: ")
+            # print('"L" for left of start (horizontal ship)\n')
+            # print('"R" for right of start (horizontal ship)\n')
+            # print('"U" for up from start (vertical ship)\n')
+            # print('"D" for down from start (vertical ship)\n')
             orientInput = input()
             orient = orientInput.upper()
             if orient == 'L' or orient == 'R' or orient == 'U' or orient == 'D':
@@ -68,8 +71,8 @@ def setup(board, numberShips):
         # if(board.isShipValid()):
         board.createShip(startx, starty, orient, numberShips, symbol)
         symbol = symbol - 1 # so symbol entered for next ship will be smaller number
-        
-            
+
+
 
 ##  Documentation for playGame method
 #   @brief interacts with both players, and takes their inputs for shooting coordinates
