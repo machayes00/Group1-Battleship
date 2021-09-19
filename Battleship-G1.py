@@ -26,6 +26,8 @@ program that sets up and plays the game.
 #       in the proper range, 1 to 6
 #   @post the input board object is modified according to user input
 
+# def checkvalidinput(x):
+
 
 def setup(board, numberShips):
     """!
@@ -43,7 +45,7 @@ def setup(board, numberShips):
                 print("\nInvalid column.\n")
             else:
                 break
-                
+
         while True:
             starty = int(input("\nWhat is the starting row of your ship? (1-9)\n")) - 1
             if starty not in range(0, 9):
@@ -63,7 +65,11 @@ def setup(board, numberShips):
             if orient not in orientation:
                 print("Please enter a valid input. (R|r for horizontal, D|d for vertical)")
             else:
-                board.createShip(startx, starty, orient, len, len)
+                if(board.isShipValid(startx, starty, orient, len)):
+                # board.createShip(startx, starty, orient, numberShips, symbol)
+                    board.createShip(startx, starty, orient, len, len)
+                # else:
+
                 break
 
 
@@ -239,7 +245,8 @@ while stopgame == 0:
         print('How many ships per player for this game?\n')
         print('Enter a number from 1 to 6:\n')
         numberShips = int(input())
-        if numberShips == 1 or 2 or 3 or 4 or 5 or 6:
+        shipcount = {1, 2, 3, 4, 5, 6}
+        if numberShips in shipcount:
             choice = 1
         else:
             print("Please enter a valid ship number.\n")
@@ -261,6 +268,7 @@ while stopgame == 0:
     # This step runs the setup method for Player 2. The method modifies
     # the waterGrid 2D array of boardPlayer2.
     setup(boardPlayer2, numberShips)
+    print("setup complete")
 
     # This now starts the shooting steps, printing printMenu() between each player's shot
     playGame(boardPlayer1, boardPlayer2)
