@@ -32,7 +32,7 @@ def setup(board, numberShips):
                     break
                 print("That's not a valid option! Please enter a letter between A through J.")
             else:
-                print("Please enter only one character")
+                print("Please enter only one character.")
 
         while True:
             starty = input("\nWhat is the starting row of your ship? (1-9)\n")
@@ -44,6 +44,43 @@ def setup(board, numberShips):
                     print("That's not a valid option! Please enter a num from 1 through 9.")
             else:
                 print("That's not a valid option! Please enter a num from 1 through 9.")
+
+        orientation = {'L', 'R', 'U', 'D', 'l', 'r', 'u', 'd'}
+
+        while True:
+            print('What is the orientation of this ship? Enter\n')
+            print('"L" for left of start (horizontal ship)\n')
+            print('"R" for right of start (horizontal ship)\n')
+            print('"U" for up from start (vertical ship)\n')
+            print('"D" for down from start (vertical ship)\n')
+            orientInput = input()
+            orient = orientInput.upper()
+            if orientInput in orientation:
+                if orient == 'L':
+                    if 9 - startx_num >= i:
+                        break
+                    else:
+                        print("The ship will not fit here!")
+                elif orient == 'R':
+                    if i + startx_num >= 9:
+                        break
+                    else:
+                        print("The ship will not fit here!")
+                elif orient == 'U':
+                    if starty_num - i >= 1:
+                        break
+                    else:
+                        print("The ship will not fit here!")
+                elif orient == 'D':
+                    if i + starty_num >= 9:
+                        break
+                    else:
+                        print("The ship will not fit here!")
+                # break
+            else:
+                print("Invalid direction for ship.")
+
+
 '''
         # guessInLower = userInput.lower()
         while True:
