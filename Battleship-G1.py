@@ -1,5 +1,6 @@
 # Import class methods needed for the program
 from Board import *
+import string
 
 
 '''
@@ -17,23 +18,62 @@ def setup(board, numberShips):
     """!
     Still need a fix for variable ship size
     """
-    symbol = numberShips # this will be updated in the for loop, so different for each ship
+    # symbol = numberShips # this will be updated in the for loop, so different for each ship
     for i in range(numberShips):
         start=0
-        
+
         # Edina: I liked how in Alice's version the checks were split for start x and start y
         # so user gets feedback for each input -- can fix this later
         while True:
-            startx = (ord(input("\nWhat is the starting column of your ship?\n")) % 32) - 1
+            startx = input("\nWhat is the starting column of your ship? (A-J)\n")
+            startx_num = (ord(startx) % 32) - 1
+            if len(startx) == 1:
+                if startx.isalpha() and startx_num in range(0,10):
+                    break
+                print("That's not a valid option! Please enter a letter between A through J.")
+            else:
+                print("Please enter only one character")
+
+        while True:
+            starty = input("\nWhat is the starting row of your ship? (1-9)\n")
+            if starty.isnumeric():
+                starty_num = int(starty)
+                if starty_num in range(0,9):
+                    break
+                else:
+                    print("That's not a valid option! Please enter a num from 1 through 9.")
+            else:
+                print("That's not a valid option! Please enter a num from 1 through 9.")
+'''
+        # guessInLower = userInput.lower()
+        while True:
+            while True:
+                try:
+                    startx = (ord(input("\nWhat is the starting column of your ship? (A-J)\n")) % 32) - 1
+                    break
+                except TypeError:
+                    print("That's not a valid option! Please enter a letter between A through J.")
+
+            if startx not in range(0, 10):
+                 print("\nInvalid column.\n")
+            else:
+                 break
+
             # a=97, b=98, ... A=65, B=66, ... so subtracting taking mod 32 should get the values we want
             # subtract 1 to convert input to array index.
-            starty = int(input("\nWhat is the starting row of your ship?\n")) - 1
-            if 0 <= startx <= 9 and 0 <= starty <= 8:
-                break
+            while True:
+                try:
+                    starty = int(input("\nWhat is the starting row of your ship?\n")) - 1
+                except:
+                    print("That's not a valid option! Please enter a letter between A through J.")
+
+            if starty not in range(0, 9):
+                 print("\nInvalid row.\n")
             else:
-                print("\nInvalid column and/or row number\n")
-       
+                 break
+
         print()
+
         while True:
             print('What is the orientation of this ship? Enter\n')
             print('"L" for left of start (horizontal ship)\n')
@@ -45,14 +85,16 @@ def setup(board, numberShips):
             if orient == "L" or "R" or "U" or "D":
                 break
             else:
-                print("Invalid direction for ship")      
+                print("Invalid direction for ship")
 
-        # Bool method should check to make sure ship being created does 
+        # Bool method should check to make sure ship being created does
         # not overlap with a coordinate that is not an "O" letter
         if(board.isShipValid()):
-            board.createShip(startx, starty, orient, symbol, symbol)
-            symbol = symbol - 1 # update variable so symbol entered for next ship will be smaller number
-        
+            board.createShip(startx, starty, orient, i, i)
+            # symbol = symbol - 1 # update variable so symbol entered for next ship will be smaller number
+
+'''
+
 ##  Documentation for playGame method
 #   @brief interacts with both players, and takes their inputs for shooting coordinates
 #   @param boardPlayer1 is a Board object modified by the setup() method
@@ -61,15 +103,15 @@ def setup(board, numberShips):
 #   @post none
 def playGame(boardPlayer1, boardPlayer2):
     """
-    Thismethod asks players to enter the coordinates for shooting at ships, 
-    and then calls the board.hits method to check hits and if sunk, and 
+    Thismethod asks players to enter the coordinates for shooting at ships,
+    and then calls the board.hits method to check hits and if sunk, and
     calls the the board.score method to keep track of remaining ships.
     """
     turn=1
     quit= False
     while boardPlayer1.allsunk == False and boardPlayer2.allsunk == False and quit == False:
         if printMenu(boardPlayer1,boardPlayer2,turn) == 3:
-            quit=True      
+            quit=True
         else:
             xhit = (ord(input("\nWhat collumn?\n")) % 32) - 1
             yhit = int(input("\nWhat row?\n")) - 1
@@ -81,10 +123,10 @@ def playGame(boardPlayer1, boardPlayer2):
                 boardPlayer1.score(boardPlayer2)
             turn=turn+1
 
-def printMenu(board1, board2,turn): 
+def printMenu(board1, board2,turn):
     """
     Print menu items and boards for the players.
-    """ 
+    """
     choice = 0
     if turn % 2 == 1:
         print("OPPONENT BOARD:")
@@ -96,7 +138,7 @@ def printMenu(board1, board2,turn):
         board1.printOpp()
         print("\nPLAYER BOARD:")
         board2.printBoard()
-    while choice != 3:    
+    while choice != 3:
             print("Please select a menu option:\n")
             # Added by Edina.
             # Edina note: probably need to add in option to hide boards,
@@ -119,11 +161,11 @@ def printMenu(board1, board2,turn):
                     "5)As the great Colonel Sanders once said \"I'm too drunk to taste this fried chicken. \"\n ")
             elif choice == 3:
                 print("\nGoodbye...")
-                return(3) 
+                return(3)
             else:
                 print("Sorry, invalid choice! Please pick again.\n")
 
-# I like Alice's fix to put the starting part of the program below in its own method, because this 
+# I like Alice's fix to put the starting part of the program below in its own method, because this
 # facilitates documentation. But it should be called run() not play() because it is weird to have
 # a play() method and a playGame() method. So I changed this back to Alice's format of new method.
 
@@ -137,7 +179,7 @@ def run():
         # Maybe add instructions from George's printMenu here. But our Project 1 instructions
         # stated that the game should be "obvious" and not need much instrucion. So maybe
         # it is better if the short prompts for user input, plus feedback to user, will let
-        # the user understand the game. 
+        # the user understand the game.
 
         choice = 0  # bool for marking acceptable choice for numberShips
         while choice == 0:
