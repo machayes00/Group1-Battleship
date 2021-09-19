@@ -8,7 +8,6 @@ Battleship-G1.py interacts with players to obtain values for the parameters
 for methods that set up the game boards, and then it interacts with players
 to obtain shooting coordinates while playing the game. It modifies the game 
 boards according to payer inputs.
-
 The program first obtains the number of ships (same for each player), then 
 sets up a board for each player, calling the setup() method for each player. 
 Once setup completes, the program calls the playGame() method, which interacts 
@@ -48,6 +47,8 @@ def setup(board, numberShips):
 
         
         print()
+
+        orientation = {'L', 'R', 'U', 'D', 'l', 'r', 'u', 'd'}
         while True:
             print('What is the orientation of this ship? Enter\n')
             print('"L" for left of start (horizontal ship)\n')
@@ -55,7 +56,10 @@ def setup(board, numberShips):
             print('"U" for up from start (vertical ship)\n')
             print('"D" for down from start (vertical ship)\n')
             orient = input()
-            if orient == ('L' or 'l' or 'R' or 'r' or 'U' or 'u' or 'D' or 'd'):
+            print(orient);
+            asdb = orient in orientation
+            print(asdb)
+            if orient in orientation:
                 break
             else:
                 print("Invalid direction for ship")
