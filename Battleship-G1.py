@@ -74,6 +74,16 @@ def setup(board, numberShips):
 
 
 
+
+
+
+
+
+
+
+
+
+
         # if 0 <= startx <= 9 and 0 <= starty <= 8: # Edina: changed since we converted to index
         #     break
         # else:
@@ -135,19 +145,47 @@ def playGame(board1, board2):
 
     choice = 0
     turn = 1
+    guessx = 0
+    guessy = 0
     while (choice != 3):
             #Alex: There should be an addition to this while loop here checking if all ships are sunk on either side
             #Edina: while loops including for printMenu should be outside, in playGame
+        
+
+        #G: Stopped infinite loop, asks player to guess coordinates, returns true if hit returns true otherwise returns false, not working correctly atm
         if turn % 2 == 1:
             print("OPPONENT BOARD:")
                     #method to print "hidden" version of boardPlayer2
             print("\nPLAYER BOARD:")
             board1.printBoard()
+            print("Take a shot!")
+            print("Enter your column of choice: ")
+            guessx = ord(input())
+            print("Enter your row of choice: ")
+            guessy = int(input())
+            if board1.hit(y,x ):
+                print("you hit a ship")
+            else:
+                print("Missed!")
+
+
+
+        #G: Stopped infinite loop, asks player to guess coordinates, returns true if hit returns true otherwise returns false, not working correctly atm    
         elif turn % 2 == 0:
             print("OPPONENT BOARD:")
                     #method to print "hidden" version of boardPlayer1
             print("\nPLAYER BOARD:")
             board2.printBoard()
+            print("Take a shot!")
+            print("Enter your column of choice: ")
+            guessx = ord(input())
+            print("Enter your row of choice: ")
+            guessy = int(input())
+            if board1.hit(y,x ):
+                print("you hit a ship")
+            else:
+                print("Missed!")
+        turn = turn +1
         # Added by Edina.
             # Edina note: probably need to add in option to hide boards,
             # to prepare for next player.I don't think we can make a call
