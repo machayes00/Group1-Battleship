@@ -33,6 +33,49 @@ def setup(board, numberShips):
     the waterGrid array from board, which this method should update
     with ship locations.
     """
+
+    for len in range(1, numberShips+1):
+        # tf = True
+        while True:
+            startx = (ord(input("\nWhat is the starting column of your ship? (A-J)\n")) % 32) - 1
+            # a=97, b=98, ... A=65, B=66, ... so subtracting taking mod 32 should get the values we want
+            if startx not in range(0, 10):
+                print("\nInvalid column.\n")
+            else:
+                break
+                
+        while True:
+            starty = int(input("\nWhat is the starting row of your ship? (1-9)\n")) - 1
+            if starty not in range(0, 9):
+                print("\nInvalid row.\n")
+            else:
+                break
+
+        orientation = {'R', 'r', 'D', 'd'}
+
+        while True:
+            orient = input("Enter the orientation of ship" + str(len) + ". (R|r for horizontal, D|d for vertical)\n")
+            # print("Please enter the starting row for you ship: ")
+            # print('"L" for left of start (horizontal ship)\n')
+            # print('"R" for right of start (horizontal ship)\n')
+            # print('"U" for up from start (vertical ship)\n')
+            # print('"D" for down from start (vertical ship)\n')
+            if orient not in orientation:
+                print("Please enter a valid input. (R|r for horizontal, D|d for vertical)")
+            else:
+                board.createShip(startx, starty, orient, len, len)
+                break
+
+
+
+        # if 0 <= startx <= 9 and 0 <= starty <= 8: # Edina: changed since we converted to index
+        #     break
+        # else:
+        #     print("\nInvalid column and/or row number\n")
+
+
+'''
+
     symbol = numberShips # this will be updated in the for loop, so different for each ship
     for i in range(numberShips):
         start=0
@@ -52,25 +95,26 @@ def setup(board, numberShips):
         print()
 
         orientation = {'L', 'R', 'U', 'D', 'l', 'r', 'u', 'd'}
+        ooo = {"H", 'h', 'V', 'v'}
         while True:
-            print('Enter the orientation of ship', i, '\n')
-            print('"L" for left of start (horizontal ship)\n')
-            print('"R" for right of start (horizontal ship)\n')
-            print('"U" for up from start (vertical ship)\n')
-            print('"D" for down from start (vertical ship)\n')
+            print("Enter the orientation of ship (H|h for horizontal, V|v for vertical)", i, '\n')
+            # print("Please enter the starting row for you ship: ")
+            # print('"L" for left of start (horizontal ship)\n')
+            # print('"R" for right of start (horizontal ship)\n')
+            # print('"U" for up from start (vertical ship)\n')
+            # print('"D" for down from start (vertical ship)\n')
             orientInput = input()
             orient = orientInput.upper()
-            if orient in orientation:
-                break
-            else:
-                print("Invalid direction for ship")
+            if orientInput not in ooo:
+                yield "Please enter a valid input (|h for horizontal, V|v for vertical)"
+
 
         # the bool method is probably fine but the above code also checks if valid
         # so for now I commented out temporarilty just to see if things work, to minimize fail points
         # if(board.isShipValid()):
         board.createShip(startx, starty, orient, numberShips, symbol)
         symbol = symbol - 1 # so symbol entered for next ship will be smaller number
-
+'''
 
 
 ##  Documentation for playGame method
