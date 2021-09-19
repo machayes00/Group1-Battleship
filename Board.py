@@ -1,5 +1,10 @@
 class Board:
 
+    # Edina: so far constructor has only wone property, that is not commented out. 
+    # It is waterGrid, which will be updated as the game progresses, by varius methods called
+    # in the executive file.
+    # So original "O" is replaced with a number for ship, * for hit water, X for hit on a ship
+
     # Constructor
     def __init__(self):
         """
@@ -21,6 +26,11 @@ class Board:
         # for example, number of ships, which can be passed in from setup() menu
         # and adujsted by a hit method that checks number of ships remaining.
 
+    ##  Documentation for printBoard method
+    #   @brief prints the waterGrid array with a border showing column name and row number
+    #   @param a Board object must call this method
+    #   @pre
+    #   @post
     def printBoard(self):
         """
         This method prints the waterGrid self.waterGrid with a border to mark coordinates
@@ -52,15 +62,12 @@ class Board:
                 print(self.waterGrid[row][col], " ", end = "")
             print()
 
- 
-        # waterGrid will be updated as the game progresses, by createShip() and hits()
-        # so original "O" is replaced with a number for ship, * for hit, X for hit on a ship
 
     # Edina: Mac inocrporated the purpose of the following bool method in setup() so
     # probably it is no longer needed but it does not harm anything to keep here in 
-    # case we can adopt it and modify for a different use.
+    # case we can adapt it and modify for a different use.
     # Alex also has this method, extensively modified in Friday's pull request
-    # So we have 2 versions of a bool that we are not yet using.
+    # So we have 2 versions of a bool that we may not need.
 
     ##documentation for isShipValid method
     # @brief checks if ship placement would be valid
