@@ -8,13 +8,11 @@ Battleship-G1.py interacts with players to obtain values for the parameters
 for methods that set up the game boards, and then it interacts with players
 to obtain shooting coordinates while playing the game. It modifies the game 
 boards according to payer inputs.
-
 The program first obtains the number of ships (same for each player), then 
 sets up a board for each player, calling the setup() method for each player. 
 Once setup completes, the program calls the playGame() method, which interacts 
 with players while they are taking shots trying to hit ships on the opponent's
 board.
-
 The top part of this file lists all the methods, and this is followed by the
 program that sets up and plays the game.
 '''
@@ -59,7 +57,7 @@ def setup(board, numberShips):
             print('"D" for down from start (vertical ship)\n')
             orientInput = input()
             orient = orientInput.upper()
-            if orient == ('L' or 'R' or 'U' or 'D'):
+            if orient == "L" or "R" or "U" or "D":
                 break
             else:
                 print("Invalid direction for ship")      
@@ -91,9 +89,21 @@ def playGame(boardPlayer1, boardPlayer2):
 
 
     # Print menu (see next method) will print between each shoot
-    printMenu(boardPlayer1, boardPlayer2)
-    pass
-
+    turn=1
+    quit= False
+    while boardPlayer1.allsunk == False and boardPlayer2.allsunk == False and quit == False:
+        if printMenu(boardPlayer1,boardPlayer2,turn) == 3:
+            quit=True
+        if quit == False:
+            xhit = (ord(input("\nWhat collumn?\n")) % 32) - 1
+            yhit = int(input("\nWhat row?\n")) - 1
+            if turn%2 == 1:
+                boardPlayer2.hit(yhit,xhit)
+                boardPlayer1.score(boardPlayer2)
+            elif turn%2 == 0:
+                boardPlayer1.hit(yhit,xhit)
+                boardPlayer1.score(boardPlayer2)
+            turn=turn+1
 #G: made a simple little menu, doesn't do anything right now. Used a while loop
 # instead of a do-while because do-while loops don't exist in python
 # Edina: did not change anything at all in George's print menu. I like how the instructions are not
@@ -120,7 +130,7 @@ def playGame(boardPlayer1, boardPlayer2):
 # the printMenu function
 # So to call this function in playGame, you have to type:
 # printMenu(boardPlayer1, boardPlayer2)
-def printMenu(board1, board2): 
+def printMenu(board1, board2,turn): 
     """!
     Print menu items for users, like option to print boards (or make
     that automatic as part of the setup?)  Also, option to quit, etc.
@@ -128,53 +138,52 @@ def printMenu(board1, board2):
     
     choice = 0
     # The next lines were added by Alex
-    turn = 1 
-    while (choice != 3): 
+     
         #Alex: There should be an addition to this while loop here checking if all ships are sunk on either side
         #Edina: while loops including for printMenu should be outside, in playGame
-        if turn % 2 == 1:
-            print("OPPONENT BOARD:")
-            #method to print "hidden" version of boardPlayer2
-            print("\nPLAYER BOARD:")
-            board1.printBoard()
-        elif turn % 2 == 0:
-            print("OPPONENT BOARD:")
-            #method to print "hidden" version of boardPlayer1
-            print("\nPLAYER BOARD:")
-            board2.printBoard()
-
-        print("Please select a menu option:\n") # Added by Edina.
-        # Edina note: probably need to add in option to hide boards,
-        # to prepare for next player.I don't think we can make a call
-        # to terminal to hide stuff, so maybe print a long vertical
-        # line of stars, to hide boards.
-        print("\n1) Take a Shot!\n2) Read rules \n3) Quit game")
-
-        # Edina: Alex's mod of the printMenu had lines of code
-        # asking for shooting coordinates, but those lines belong in 
-        # playGame, not in a print menu. printMenu is called by playGame,
-        # takes in user choice and returns that choice to the playGame f'n.
-        # So for now the rest of the print menu is from George's original version
-        # which probably needs modifications still -- I did not disturb it
-        # except for choice 1 (to fit Alex's mod) but I added some comments
-        if(choice == 1):
-            return (1) # return this choice to playGame and start shootin')
-            # with this choice returned to playGame, it could call a shoot method
-
-        elif(choice == 2):
-            print("-----------------------------------------------------------------------------------------------------------------------------------------------Rules of Battleship-----------------------------------------------------------------------------------------------------------------------------------------------\n")
-            print("Overview:\nBattleship is a two player game where both players secretly place 1 to 6 ships on a 9x10 grid. Taking turns each player announces where on the opponents grid they wish to fire. The opponent must announce whether or not one of the ships was hit. The first player to sink all of the oponents ships wins\n ")
-            print("1)Ship size will be dependent on number of ships chosen. If one ship is chosen each player will be given a 1x1 ship . If two ships are chosen each player will be given a 1x1 and a 1x2 ship and so on.\n")
-            print("2)After the ships have been chosen, players will be able to place and orient their ships, you may place your ship anywhere within the board and orient it up, down, left or right. You may not orient it diagonally or intersect another ship.\n")
-            print("3)Taking turns, the users pick a space on the opponent's board to fire at,each shot must be updated to indicate a hit or miss.\n")
-            print("4)Once a ship has been hit in every space it occupies, it is sunk.\n")
-            print(
-                "5)As the great Colonel Sanders once said \"I'm too drunk to taste this fried chicken. \"\n ")
-        elif(choice == 3):
-            print("\nGoodbye...")
-            return(3) # added by Edina; return this to playGame which called printMenu
-        else:
-            print("Sorry, invalid choice! Please pick again.\n")
+    if turn % 2 == 1:
+        print("OPPONENT BOARD:")
+        board2.printOpp()
+        print("\nPLAYER BOARD:")
+        board1.printBoard()
+    elif turn % 2 == 0:
+        print("OPPONENT BOARD:")
+        board1.printOpp()
+        print("\nPLAYER BOARD:")
+        board2.printBoard()
+    while choice != 3:    
+            print("Please select a menu option:\n")
+            # Added by Edina.
+            # Edina note: probably need to add in option to hide boards,
+            # to prepare for next player.I don't think we can make a call
+            # to terminal to hide stuff, so maybe print a long vertical
+            # line of stars, to hide boards.
+            print("\n1) Take a Shot!\n2) Read rules \n3) Quit game")
+            choice=int(input())
+            # Edina: Alex's mod of the printMenu had lines of code
+            # asking for shooting coordinates, but those lines belong in 
+            # playGame, not in a print menu. printMenu is called by playGame,
+            # takes in user choice and returns that choice to the playGame f'n.
+            # So for now the rest of the print menu is from George's original version
+            # which probably needs modifications still -- I did not disturb it
+            # except for choice 1 (to fit Alex's mod) but I added some comments
+            if choice == 1:
+                return(1) # return this choice to playGame and start shootin')
+                # with this choice returned to playGame, it could call a shoot method
+            elif choice == 2:
+                print("-----------------------------------------------------------------------------------------------------------------------------------------------Rules of Battleship-----------------------------------------------------------------------------------------------------------------------------------------------\n")
+                print("Overview:\nBattleship is a two player game where both players secretly place 1 to 6 ships on a 9x10 grid. Taking turns each player announces where on the opponents grid they wish to fire. The opponent must announce whether or not one of the ships was hit. The first player to sink all of the oponents ships wins\n ")
+                print("1)Ship size will be dependent on number of ships chosen. If one ship is chosen each player will be given a 1x1 ship . If two ships are chosen each player will be given a 1x1 and a 1x2 ship and so on.\n")
+                print("2)After the ships have been chosen, players will be able to place and orient their ships, you may place your ship anywhere within the board and orient it up, down, left or right. You may not orient it diagonally or intersect another ship.\n")
+                print("3)Taking turns, the users pick a space on the opponent's board to fire at,each shot must be updated to indicate a hit or miss.\n")
+                print("4)Once a ship has been hit in every space it occupies, it is sunk.\n")
+                print(
+                    "5)As the great Colonel Sanders once said \"I'm too drunk to taste this fried chicken. \"\n ")
+            elif choice == 3:
+                print("\nGoodbye...")
+                return(3)  # added by Edina; return this to playGame which called printMenu
+            else:
+                print("Sorry, invalid choice! Please pick again.\n")
 
 
 # Ths next part starts the program.
