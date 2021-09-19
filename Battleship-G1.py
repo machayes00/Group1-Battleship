@@ -53,14 +53,14 @@ def setup(board, numberShips):
 
         orientation = {'L', 'R', 'U', 'D', 'l', 'r', 'u', 'd'}
         while True:
-            print('What is the orientation of this ship? Enter\n')
+            print('Enter the orientation of ship', i, '\n')
             print('"L" for left of start (horizontal ship)\n')
             print('"R" for right of start (horizontal ship)\n')
             print('"U" for up from start (vertical ship)\n')
             print('"D" for down from start (vertical ship)\n')
             orientInput = input()
             orient = orientInput.upper()
-            if orient == ('L' or 'R' or 'U' or 'D'):
+            if orient in orientation:
                 break
             else:
                 print("Invalid direction for ship")
