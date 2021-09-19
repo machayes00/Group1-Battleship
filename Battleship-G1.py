@@ -131,7 +131,7 @@ def setup(board, numberShips):
 #   @post
 
 
-def playGame(board1, board2, boardPlayer1, boardPlayer2):
+def playGame(board1, board2):
 
     choice = 0
     turn = 1
@@ -164,6 +164,7 @@ def playGame(board1, board2, boardPlayer1, boardPlayer2):
                 # with this choice returned to playGame, it could call a shoot method
                 # added by Edina; return this to playGame which called printMenu
     # Ths next part starts the program.
+    '''
     stopgame = 0  # variable for giving option to quit game or play again, once a game is over
     while stopgame == 0:
         print('\n *** WELCOME TO BATTLESHIP!! ***')
@@ -203,8 +204,59 @@ def playGame(board1, board2, boardPlayer1, boardPlayer2):
 
         # This now starts the shooting steps, printing printMenu() between each player's shot
         # Once playGame method ends, give players the option to play again rather than exit program.
+
         print("\nWould you like to play another game?\n")
         print('Enter "Y" for yes, "N" for no:\n')
         choice = input()
         if input == "N" or "n":
             stopgame = 1
+    '''
+
+def play():
+    stopgame = 0  # variable for giving option to quit game or play again, once a game is over
+    while stopgame == 0:
+        print('\n *** WELCOME TO BATTLESHIP!! ***')
+        print()
+        # Maybe add instructions from George's printMenu here. But our Project 1 instructions
+        # stated that the game should be "obvious" and not need much instrucion. So maybe
+        # it is better if the short prompts for user input, plus feedback to user, will let
+        # the user understand the game.
+
+        choice = 0  # bool for marking acceptable choice for numberShips
+        while choice == 0:
+            print('How many ships per player for this game?')
+            print('Enter a number from 1 to 6:')
+            numberShips = int(input())
+            shipcount = {1, 2, 3, 4, 5, 6}
+            if numberShips in shipcount:
+                choice = 1
+            else:
+                print("Please enter a valid ship number.\n")
+
+        # Create a board object for player 1
+        boardPlayer1 = Board()
+
+        print('\nReady to set up the board for Player 1!\n')
+
+        # This step runs the setup method for Player 1. The method modifies
+        # the waterGrid 2D array of boardPlayer1.
+        setup(boardPlayer1, numberShips)
+
+        # Create a board object for player 2
+        boardPlayer2 = Board()
+
+        print('\nReady to set up the board for Player 2!\n')
+
+        # This step runs the setup method for Player 2. The method modifies
+        # the waterGrid 2D array of boardPlayer2.
+        setup(boardPlayer2, numberShips)
+
+        playGame(boardPlayer1, boardPlayer2)
+
+        print("\nWould you like to play another game?\n")
+        print('Enter "Y" for yes, "N" for no:\n')
+        choice = input()
+        if input == "N" or "n":
+            stopgame = 1
+
+play()
