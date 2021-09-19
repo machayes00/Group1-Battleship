@@ -1,20 +1,9 @@
 # Import class methods needed for the program
-#Note: Comments starting with G made by George
 from Board import *
 
 
 '''
-Battleship-G1.py interacts with players to obtain values for the parameters
-for methods that set up the game boards, and then it interacts with players
-to obtain shooting coordinates while playing the game. It modifies the game 
-boards according to payer inputs.
-The program first obtains the number of ships (same for each player), then 
-sets up a board for each player, calling the setup() method for each player. 
-Once setup completes, the program calls the playGame() method, which interacts 
-with players while they are taking shots trying to hit ships on the opponent's
-board.
-The top part of this file lists all the methods, and this is followed by the
-program that sets up and plays the game.
+a short sum of this file here.
 '''
 
 ##  Documentation for setup method
@@ -24,30 +13,27 @@ program that sets up and plays the game.
 #   @pre board object must have correct properties; numberShips must be
 #       in the proper range, 1 to 6
 #   @post the input board object is modified according to user input
-
-
 def setup(board, numberShips):
     """!
-    In addition to the code from createBool, need to add more checks using
-    the waterGrid array from board, which this method should update
-    with ship locations.
+    We need to add more checks when modifying the waterGrid array from the board, 
+    so that ship locations can't overlap or run off the board.
     """
     symbol = numberShips # this will be updated in the for loop, so different for each ship
     for i in range(numberShips):
         start=0
         
-        #This could be changed to handle excetions, but I don't really see the difference unless we catch type errors too
-        #so that's a possible continuation
+        # Edina: I liked how in Alice's version the checks were split for start x and start y
+        # so user gets feedback for each input -- can fix this later
         while True:
             startx = (ord(input("\nWhat is the starting column of your ship?\n")) % 32) - 1
             # a=97, b=98, ... A=65, B=66, ... so subtracting taking mod 32 should get the values we want
+            # subtract 1 to convert input to array index.
             starty = int(input("\nWhat is the starting row of your ship?\n")) - 1
-            if 0 <= startx <= 9 and 0 <= starty <= 8: # Edina: changed since we converted to index
+            if 0 <= startx <= 9 and 0 <= starty <= 8:
                 break
             else:
                 print("\nInvalid column and/or row number\n")
-
-        
+       
         print()
         while True:
             print('What is the orientation of this ship? Enter\n')
@@ -62,39 +48,30 @@ def setup(board, numberShips):
             else:
                 print("Invalid direction for ship")      
 
-        # the bool method is probably fine but the above code also checks if valid
-        # so for now I commented out temporarilty just to see if things work, to minimize fail points
-        # if(board.isShipValid()):
-        board.createShip(startx, starty, orient, numberShips, symbol)
-        symbol = symbol - 1 # so symbol entered for next ship will be smaller number
+        # Bool method should check to make sure ship being created does 
+        # not overlap with a coordinate that is not an "O" letter
+        if(board.isShipValid()):
+            board.createShip(startx, starty, orient, numberShips, symbol)
+            symbol = symbol - 1 # update variable so symbol entered for next ship will be smaller number
         
-            
-
 ##  Documentation for playGame method
 #   @brief interacts with both players, and takes their inputs for shooting coordinates
-#   @param boardPlayer1 is a Board object bodified by the setup() method
-#   @param boardPlayer2 is a Board object bodified by the setup() method
+#   @param boardPlayer1 is a Board object modified by the setup() method
+#   @param boardPlayer2 is a Board object modified by the setup() method
 #   @pre appropriate Board objects must be passed in, after setup() modification
-#   @post
+#   @post none
 def playGame(boardPlayer1, boardPlayer2):
     """
-    This is the method for asking players to enter the coordinates
-    for shooting at ships, and then calling the board.checkShots method and 
-    the board.Score method.
-    If this gets too complex, possibly make it a separate class,
-    with propertyies that include Player objects(?) But my suggestion is
-    to at least start it out in this file, in order to start simple and be able
-    to test an early form of the game, the minimal things.
+    Thismethod asks players to enter the coordinates for shooting at ships, 
+    and then calls the board.hits method to check hits and if sunk, and 
+    calls the the board.score method to keep track of remaining ships.
     """
-
-
-    # Print menu (see next method) will print between each shoot
     turn=1
     quit= False
     while boardPlayer1.allsunk == False and boardPlayer2.allsunk == False and quit == False:
         if printMenu(boardPlayer1,boardPlayer2,turn) == 3:
-            quit=True
-        if quit == False:
+            quit=True      
+        else:
             xhit = (ord(input("\nWhat collumn?\n")) % 32) - 1
             yhit = int(input("\nWhat row?\n")) - 1
             if turn%2 == 1:
@@ -104,43 +81,12 @@ def playGame(boardPlayer1, boardPlayer2):
                 boardPlayer1.hit(yhit,xhit)
                 boardPlayer1.score(boardPlayer2)
             turn=turn+1
-#G: made a simple little menu, doesn't do anything right now. Used a while loop
-# instead of a do-while because do-while loops don't exist in python
-# Edina: did not change anything at all in George's print menu. I like how the instructions are not
-# printed unless a player asks to see them. But what I was thinking is to have a menu that prints
-# options repeatedly while the game is played. The idea is to have this method
-# be called by the playGame() method between each turn. Something simple. We could also
-# add a menu option to print boards but maybe a better idea is to have them print automatically
-# each time a new turn is taken. So, something like this presented by playGame each time a new
-# turn is taken:
 
-# print("\nPlease select an option:\n(1) Take a shot\n (2) Read rules\n(3) Quit game\n ")
-
-# Maybe printMenu should first print the player's own board by calling the appropriate printBoard
-# method from Board class, then print the menu options, and if player selects to take s shot, 
-# then pirnt the opponent's board.
-
-# But the menu should be short since it is presented repeatedly for each player at ever single turn.
-
-# Edina: I added in some of Alex's changes to printMenu
-# His method made use of the Board objects as arguments but these were not included
-# in the function signature so I added them -- it is the only change I made to his mod of the f'n
-# The idea is, when this funcion is called, boardPlayer1 and boardPlayer2
-# can be passed in, which allows calling printBoard methods on them, within
-# the printMenu function
-# So to call this function in playGame, you have to type:
-# printMenu(boardPlayer1, boardPlayer2)
 def printMenu(board1, board2,turn): 
-    """!
-    Print menu items for users, like option to print boards (or make
-    that automatic as part of the setup?)  Also, option to quit, etc.
     """
-    
+    Print menu items and boards for the players.
+    """ 
     choice = 0
-    # The next lines were added by Alex
-     
-        #Alex: There should be an addition to this while loop here checking if all ships are sunk on either side
-        #Edina: while loops including for printMenu should be outside, in playGame
     if turn % 2 == 1:
         print("OPPONENT BOARD:")
         board2.printOpp()
@@ -160,16 +106,9 @@ def printMenu(board1, board2,turn):
             # line of stars, to hide boards.
             print("\n1) Take a Shot!\n2) Read rules \n3) Quit game")
             choice=int(input())
-            # Edina: Alex's mod of the printMenu had lines of code
-            # asking for shooting coordinates, but those lines belong in 
-            # playGame, not in a print menu. printMenu is called by playGame,
-            # takes in user choice and returns that choice to the playGame f'n.
-            # So for now the rest of the print menu is from George's original version
-            # which probably needs modifications still -- I did not disturb it
-            # except for choice 1 (to fit Alex's mod) but I added some comments
+
             if choice == 1:
-                return(1) # return this choice to playGame and start shootin')
-                # with this choice returned to playGame, it could call a shoot method
+                return(1) # return this choice to playGame and start shootin'
             elif choice == 2:
                 print("-----------------------------------------------------------------------------------------------------------------------------------------------Rules of Battleship-----------------------------------------------------------------------------------------------------------------------------------------------\n")
                 print("Overview:\nBattleship is a two player game where both players secretly place 1 to 6 ships on a 9x10 grid. Taking turns each player announces where on the opponents grid they wish to fire. The opponent must announce whether or not one of the ships was hit. The first player to sink all of the oponents ships wins\n ")
@@ -181,57 +120,62 @@ def printMenu(board1, board2,turn):
                     "5)As the great Colonel Sanders once said \"I'm too drunk to taste this fried chicken. \"\n ")
             elif choice == 3:
                 print("\nGoodbye...")
-                return(3)  # added by Edina; return this to playGame which called printMenu
+                return(3) 
             else:
                 print("Sorry, invalid choice! Please pick again.\n")
 
+# I like Alice's fix to put the starting part of the program below in its own method, because this 
+# facilitates documentation. But it should be called run() not play() because it is weird to have
+# a play() method and a playGame() method. So I changed this back to that format.
 
-# Ths next part starts the program.
-stopgame = 0  # variable for giving option to quit game or play again, once a game is over
+def run():
+    stopgame = 0  # variable for giving option to quit game or play again, once a game is over
 
-while stopgame == 0:
+    while stopgame == 0:
 
-    print('\n *** WELCOME TO BATTLESHIP!! ***\n')
-    print()
-    # Maybe add instructions from George's printMenu here. But our Project 1 instructions
-    # stated that the game should be "obvious" and not need much instrucion. So maybe
-    # it is better if the short prompts for user input, plus feedback to user, will let
-    # the user understand the game. 
+        print('\n *** WELCOME TO BATTLESHIP!! ***\n')
+        print()
+        # Maybe add instructions from George's printMenu here. But our Project 1 instructions
+        # stated that the game should be "obvious" and not need much instrucion. So maybe
+        # it is better if the short prompts for user input, plus feedback to user, will let
+        # the user understand the game. 
 
-    choice = 0  # bool for marking acceptable choice for numberShips
-    while choice == 0:
-        print('How many ships per player for this game?\n')
-        print('Enter a number from 1 to 6:\n')
-        numberShips = int(input())
-        if numberShips == 1 or 2 or 3 or 4 or 5 or 6:
-            choice = 1
-        else:
-            print("Please enter a valid ship number.\n")
+        choice = 0  # bool for marking acceptable choice for numberShips
+        while choice == 0:
+            print('How many ships per player for this game?\n')
+            print('Enter a number from 1 to 6:\n')
+            numberShips = int(input())
+            if numberShips == 1 or 2 or 3 or 4 or 5 or 6:
+                choice = 1
+            else:
+                print("Please enter a valid ship number.\n")
 
-    # Create a board object for player 1
-    boardPlayer1 = Board()
+        # Create a board object for player 1
+        boardPlayer1 = Board()
 
-    print('\nReady to set up the board for Player 1!\n')
+        print('\nReady to set up the board for Player 1!\n')
 
-    # This step runs the setup method for Player 1. The method modifies
-    # the waterGrid 2D array of boardPlayer1.
-    setup(boardPlayer1, numberShips)
+        # This step runs the setup method for Player 1. The method modifies
+        # the waterGrid 2D array of boardPlayer1.
+        setup(boardPlayer1, numberShips)
 
-    # Create a board object for player 2
-    boardPlayer2 = Board()
+        # Create a board object for player 2
+        boardPlayer2 = Board()
 
-    print('\nReady to set up the board for Player 2!\n')
+        print('\nReady to set up the board for Player 2!\n')
 
-    # This step runs the setup method for Player 2. The method modifies
-    # the waterGrid 2D array of boardPlayer2.
-    setup(boardPlayer2, numberShips)
+        # This step runs the setup method for Player 2. The method modifies
+        # the waterGrid 2D array of boardPlayer2.
+        setup(boardPlayer2, numberShips)
 
-    # This now starts the shooting steps, printing printMenu() between each player's shot
-    playGame(boardPlayer1, boardPlayer2)
+        # This now starts the shooting steps, printing printMenu() between each player's shot
+        playGame(boardPlayer1, boardPlayer2)
 
-    # Once playGame method ends, give players the option to play again rather than exit program.
-    print("\nWould you like to play another game?\n")
-    print('Enter "Y" for yes, "N" for no:\n')
-    choice = input()
-    if input == "N" or "n":
-        stopgame = 1
+        # Once playGame method ends, give players the option to play again rather than exit program.
+        print("\nWould you like to play another game?\n")
+        print('Enter "Y" for yes, "N" for no:\n')
+        choice = input()
+        if input == "N" or "n":
+            stopgame = 1
+
+run()
