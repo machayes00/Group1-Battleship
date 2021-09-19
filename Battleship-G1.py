@@ -15,8 +15,7 @@ a short sum of this file here.
 #   @post the input board object is modified according to user input
 def setup(board, numberShips):
     """!
-    We need to add more checks when modifying the waterGrid array from the board, 
-    so that ship locations can't overlap or run off the board.
+    Still need a fix for variable ship size
     """
     symbol = numberShips # this will be updated in the for loop, so different for each ship
     for i in range(numberShips):
