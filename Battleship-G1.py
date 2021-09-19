@@ -65,9 +65,9 @@ def setup(board, numberShips):
             if orient not in orientation:
                 print("Please enter a valid input. (R|r for horizontal, D|d for vertical)")
             else:
-                if(board.isShipValid(startx, starty, orient, len)):
-                # board.createShip(startx, starty, orient, numberShips, symbol)
-                    board.createShip(startx, starty, orient, len, len)
+                # if(board.isShipValid(startx, starty, orient, len)):
+                board.createShip(startx, starty, orient, len, len)
+                #     board.createShip(startx, starty, orient, len, len)
                 # else:
 
                 break
