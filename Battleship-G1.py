@@ -50,7 +50,7 @@ def setup(board, numberShips):
         # Bool method should check to make sure ship being created does 
         # not overlap with a coordinate that is not an "O" letter
         if(board.isShipValid()):
-            board.createShip(startx, starty, orient, numberShips, symbol)
+            board.createShip(startx, starty, orient, symbol, symbol)
             symbol = symbol - 1 # update variable so symbol entered for next ship will be smaller number
         
 ##  Documentation for playGame method
@@ -125,7 +125,7 @@ def printMenu(board1, board2,turn):
 
 # I like Alice's fix to put the starting part of the program below in its own method, because this 
 # facilitates documentation. But it should be called run() not play() because it is weird to have
-# a play() method and a playGame() method. So I changed this back to that format.
+# a play() method and a playGame() method. So I changed this back to Alice's format of new method.
 
 def run():
     stopgame = 0  # variable for giving option to quit game or play again, once a game is over
