@@ -37,7 +37,7 @@ def setup(board, numberShips):
         while True:
             starty = input("\nWhat is the starting row of your ship? (1-9)\n")
             if starty.isnumeric():
-                starty_num = int(starty)
+                starty_num = int(starty) - 1
                 if starty_num in range(0,9):
                     break
                 else:
