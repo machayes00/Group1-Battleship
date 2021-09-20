@@ -24,7 +24,7 @@ def setup(board, numberShips):
 
         #check for valid column input
         while True:
-            startx = input("\nWhat is the starting column of your ship? (A-J)\n")
+            startx = input("\nWhat is the starting column of ship " + str(i) + " ? (A-J)\n")
             startx_num = (ord(startx) % 32) - 1
             if len(startx) == 1:
                 if startx.isalpha() and startx_num in range(0,10):
@@ -35,7 +35,7 @@ def setup(board, numberShips):
 
         #check for valid row input
         while True:
-            starty = input("\nWhat is the starting row of your ship? (1-9)\n")
+            starty = input("\nWhat is the starting row of ship " + str(i) + " ? (1-9)\n")
             if starty.isnumeric():
                 starty_num = int(starty) - 1
                 if starty_num in range(0,9):
@@ -221,12 +221,23 @@ def run():
         choice = 0  # bool for marking acceptable choice for numberShips
         while choice == 0:
             print('How many ships per player for this game?\n')
-            print('Enter a number from 1 to 6:\n')
-            numberShips = int(input())
-            if numberShips == 1 or 2 or 3 or 4 or 5 or 6:
-                choice = 1
+            numberShips = input('Enter a number from 1 to 6:\n')
+            # print()
+            if numberShips.isnumeric():
+                ship_num = int(numberShips)
+                if ship_num in range(1, 7):
+                    choice = 1
+                else:
+                    print("Please enter a number between 1 and 6!\n")
             else:
                 print("Please enter a valid ship number.\n")
+
+            # numberShips = int(input())
+
+            # if numberShips in range(1, 7):
+            #     choice = 1
+            # else:
+            #     print("Please enter a valid ship number.\n")
 
         # Create a board object for player 1
         boardPlayer1 = Board()
@@ -235,7 +246,7 @@ def run():
 
         # This step runs the setup method for Player 1. The method modifies
         # the waterGrid 2D array of boardPlayer1.
-        setup(boardPlayer1, numberShips)
+        setup(boardPlayer1, ship_num)
 
         # Create a board object for player 2
         boardPlayer2 = Board()
@@ -244,7 +255,7 @@ def run():
 
         # This step runs the setup method for Player 2. The method modifies
         # the waterGrid 2D array of boardPlayer2.
-        setup(boardPlayer2, numberShips)
+        setup(boardPlayer2, ship_num)
 
         # This now starts the shooting steps, printing printMenu() between each player's shot
         playGame(boardPlayer1, boardPlayer2)
@@ -253,7 +264,11 @@ def run():
         print("\nWould you like to play another game?\n")
         print('Enter "Y" for yes, "N" for no:\n')
         choice = input()
-        if input == "N" or "n":
+        if input == "N" or input == "n":
             stopgame = 1
+        # elif input == 'Y' or input == 'y':
+        #     pass
+        # else:
+        #     print("")
 
 run()
