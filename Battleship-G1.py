@@ -15,10 +15,6 @@ a short sum of this file here.
 #       in the proper range, 1 to 6
 #   @post the input board object is modified according to user input
 def setup(board, numberShips):
-    """!
-    Still need a fix for variable ship size
-    """
-    # symbol = numberShips # this will be updated in the for loop, so different for each ship
     for i in range(numberShips):
         # start=0
 
@@ -157,12 +153,14 @@ def printMenu(board1, board2,turn):
             # line of stars, to hide boards.
             print("\n1) Take a Shot!\n2) Read rules \n3) Quit game")
 
-            # while True:
-            choice = input()
-            if choice.isnumeric():
-                choice=int(choice)
-            else:
-                print("Sorry, invalid choice! Please pick again.\n")
+            while True:
+                choice = input()
+                if choice.isnumeric():
+                    choice=int(choice)
+                    break
+                else:
+                    print("Sorry, invalid choice! Please pick again.\n")
+                    print("\n1) Take a Shot!\n2) Read rules \n3) Quit game")
 
             if choice == 1:
                 return(1) # return this choice to playGame and start shootin'
