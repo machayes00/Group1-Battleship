@@ -20,11 +20,11 @@ def setup(board, numberShips):
     """
     # symbol = numberShips # this will be updated in the for loop, so different for each ship
     for i in range(numberShips):
-        start=0
+        # start=0
 
         #check for valid column input
         while True:
-            startx = input("\nWhat is the starting column of ship " + str(i) + " ? (A-J)\n")
+            startx = input("\nWhat is the starting column of ship " + str(i) + "? (A-J)\n")
             startx_num = (ord(startx) % 32) - 1
             if len(startx) == 1:
                 if startx.isalpha() and startx_num in range(0,10):
@@ -35,7 +35,7 @@ def setup(board, numberShips):
 
         #check for valid row input
         while True:
-            starty = input("\nWhat is the starting row of ship " + str(i) + " ? (1-9)\n")
+            starty = input("\nWhat is the starting row of ship " + str(i) + "? (1-9)\n")
             if starty.isnumeric():
                 starty_num = int(starty) - 1
                 if starty_num in range(0,9):
@@ -80,57 +80,7 @@ def setup(board, numberShips):
             else:
                 print("Invalid direction for ship.")
 
-
-'''
-        # guessInLower = userInput.lower()
-        while True:
-            while True:
-                try:
-                    startx = (ord(input("\nWhat is the starting column of your ship? (A-J)\n")) % 32) - 1
-                    break
-                except TypeError:
-                    print("That's not a valid option! Please enter a letter between A through J.")
-
-            if startx not in range(0, 10):
-                 print("\nInvalid column.\n")
-            else:
-                 break
-
-            # a=97, b=98, ... A=65, B=66, ... so subtracting taking mod 32 should get the values we want
-            # subtract 1 to convert input to array index.
-            while True:
-                try:
-                    starty = int(input("\nWhat is the starting row of your ship?\n")) - 1
-                except:
-                    print("That's not a valid option! Please enter a letter between A through J.")
-
-            if starty not in range(0, 9):
-                 print("\nInvalid row.\n")
-            else:
-                 break
-
-        print()
-
-        while True:
-            print('What is the orientation of this ship? Enter\n')
-            print('"L" for left of start (horizontal ship)\n')
-            print('"R" for right of start (horizontal ship)\n')
-            print('"U" for up from start (vertical ship)\n')
-            print('"D" for down from start (vertical ship)\n')
-            orientInput = input()
-            orient = orientInput.upper()
-            if orient == "L" or "R" or "U" or "D":
-                break
-            else:
-                print("Invalid direction for ship")
-
-        # Bool method should check to make sure ship being created does
-        # not overlap with a coordinate that is not an "O" letter
-        if(board.isShipValid()):
-            board.createShip(startx, starty, orient, i, i)
-            # symbol = symbol - 1 # update variable so symbol entered for next ship will be smaller number
-
-'''
+        board.createShip(startx_num, starty_num, orient, i+1, i+1)
 
 ##  Documentation for playGame method
 #   @brief interacts with both players, and takes their inputs for shooting coordinates
@@ -150,13 +100,36 @@ def playGame(boardPlayer1, boardPlayer2):
         if printMenu(boardPlayer1,boardPlayer2,turn) == 3:
             quit=True
         else:
-            xhit = (ord(input("\nWhat collumn?\n")) % 32) - 1
-            yhit = int(input("\nWhat row?\n")) - 1
+
+            #check for valid column input
+            while True:
+                xhit = input("\nWhat column?\n")
+                if xhit.isalpha():
+                    xcoord = (ord(xhit) % 32) - 1
+                    if xcoord in range (0, 10):
+                        break
+                    else:
+                        print("Please enter a letter between A-J")
+                else:
+                    print("Please enter a valid column. (A-J)")
+
+            #check for valid row inpu
+            while True:
+                yhit = input("\nWhat row?\n")
+                if yhit.isnumeric():
+                    ycoord = int(yhit) - 1
+                    if ycoord in range(0, 10):
+                        break
+                    else:
+                        print("Please enter a number between 1-9.)")
+                else:
+                    print("Please enter a valid row. (1-9)")
+
             if turn%2 == 1:
-                boardPlayer2.hit(yhit,xhit)
+                boardPlayer2.hit(ycoord,xcoord)
                 boardPlayer1.score(boardPlayer2)
             elif turn%2 == 0:
-                boardPlayer1.hit(yhit,xhit)
+                boardPlayer1.hit(ycoord,xcoord)
                 boardPlayer1.score(boardPlayer2)
             turn=turn+1
 
@@ -183,7 +156,13 @@ def printMenu(board1, board2,turn):
             # to terminal to hide stuff, so maybe print a long vertical
             # line of stars, to hide boards.
             print("\n1) Take a Shot!\n2) Read rules \n3) Quit game")
-            choice=int(input())
+
+            # while True:
+            choice = input()
+            if choice.isnumeric():
+                choice=int(choice)
+            else:
+                print("Sorry, invalid choice! Please pick again.\n")
 
             if choice == 1:
                 return(1) # return this choice to playGame and start shootin'
@@ -262,9 +241,8 @@ def run():
 
         # Once playGame method ends, give players the option to play again rather than exit program.
         print("\nWould you like to play another game?\n")
-        print('Enter "Y" for yes, "N" for no:\n')
-        choice = input()
-        if input == "N" or input == "n":
+        endgame = input('Enter "Y" for yes, "N" for no:\n')
+        if endgame == "N" or endgame == "n":
             stopgame = 1
         # elif input == 'Y' or input == 'y':
         #     pass
