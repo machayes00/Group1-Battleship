@@ -6,7 +6,7 @@ import string
 '''
 Responsible for executing the game.
 This file creates a game board for each of the players based on user input and places ships accordingly.
-It then plays the game, keeping track of turn counts and win conditions for each player along with displaying 
+It then plays the game, keeping track of turn counts and win conditions for each player along with displaying
 '''
 
 ##  Documentation for setup method
@@ -20,7 +20,7 @@ def setup(board, numberShips):
     for i in range(numberShips):
         #check for valid column input
         while True:
-            startx = input("\nWhat is the starting column of ship " + str(i) + "? (A-J)\n")
+            startx = input("\nWhat is the starting column of ship " + str(i+1) + "? (A-J)\n")
             startx_num = (ord(startx) % 32) - 1
             if len(startx) == 1:
                 if startx.isalpha() and startx_num in range(0,10):
@@ -31,7 +31,7 @@ def setup(board, numberShips):
 
         #check for valid row input
         while True:
-            starty = input("\nWhat is the starting row of ship " + str(i) + "? (1-9)\n")
+            starty = input("\nWhat is the starting row of ship " + str(i+1) + "? (1-9)\n")
             if starty.isnumeric():
                 starty_num = int(starty) - 1
                 if starty_num in range(0,9):
