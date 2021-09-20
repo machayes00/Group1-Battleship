@@ -1,6 +1,6 @@
-# EECS168 Project 1 Battleship - Group 1
+# EECS168 Project 1 - Battleship
 
-This is project 1 for EECS 168 to build a battleship game. 
+This is a project for EECS 168. The purpose of this project is to build a battleship game. 
 
 ## Battleship
 
@@ -46,9 +46,6 @@ command to run if program contains helper info
 
 ## Version History
 
-* 0.2
-  * Various bug fixes and optimizations
-  * See [commit change]() or See [release history]()
 * 0.1
   * Initial Release
 
