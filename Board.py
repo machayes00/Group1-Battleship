@@ -1,16 +1,10 @@
 class Board:
-    """
-    This constructs the full board, initialized to be empty of ships.
-    It contains a 2D self.waterGrid, waterGrid. Locations marked as '0' are water,
-    and these will be changed to S wherever there is a ship, and to * to
-    mark locations of hits. The S and * locations are obtained from two lists,
-    shipSpots and shots, both of which are initialized to be empty.
-
+    """Class for creating components of active player and opponent game boards
+    and changing or checking the characteristics of the boards and displaying them.
     """
 
     def __init__(self):
-        """
-        Constructor
+        """Constructor method
         """
 
         self.shipObjects = [] # this is a list of ship objects. They will be checked to determine which ship is hit, and update ship coord, sunk variables
@@ -22,10 +16,9 @@ class Board:
         self.allsunk=False
 
     def printBoard(self):
-        """
-        This method prints the waterGrid self.waterGrid with a border to mark coordinates
-        (A-J for columns and 1-9 for rows).
-        This printed board shows all the ships.
+        """Prints the active player's game board with a border to mark coordinates
+        (A-J for columns and 1-9 for rows). The printed board shows all the ships
+        because it uses the waterGrid 2D array for printing data.
         """
         topOfBoard = [' ', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
         # print top of board
@@ -41,15 +34,11 @@ class Board:
                 print(self.waterGrid[row][col], " ", end = "")
             print()
 
-    ##documentation for a method
-    # @brief checks if ship placement would be valid
-    # @param startx: x position in self.waterGrid
-    # @param starty: y position in self.waterGrid
-    # @param orient: orientation of ship orientation of ship:
-    #       (L=left of start, R=right of start, U=up from start, D=down from start)
-    # @param length: length of ship
-    # @post returns true if ship placement works
     def printOpp(self):
+        """Prints the opponent player's game board with a border to mark coordinates
+        (A-J for columns and 1-9 for rows). The printed board hides all the ships
+        because it uses the oppGrid 2D array for printing data.
+        """
         topOfBoard = [' ', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
         # print top of board
         for i in topOfBoard:
@@ -64,12 +53,16 @@ class Board:
                 print(self.oppGrid[row][col], " ", end = "")
             print()
 
-    def checkShipOverlap(self, x, y, len):
-        for i in self.waterGrid:
-            for j in i:
-                if j != 'O':
+    def checkShipOverlap(self, x, y, len,orient):
+        start = 0
+        for i in self.waterGrid[x]:
+            for j in self.waterGrid[y]:
+                if j != 'O' and j != '*':
+                #if Board[x][y] == '1' or Board[x][y] == '2' or Board[x][y] =='3' or Board[x][y] == '4' or Board[x][y] == '5':
+                    print("There is already a ship here, please reenter coordinates. ")
                     return False
-        return True
+                else:
+                    return True
 
 
     def isShipValid(self, orient, startx, starty, length):
@@ -97,15 +90,20 @@ class Board:
                 start=start+1
         return bool
 
-    ##documentation for createShip method
-    # @brief creates a ship
-    # @param startx: x position in self.waterGrid
-    # @param starty: y position in self.waterGrid
-    # @param orient: orientation of ship orientation of ship:
-    #       (L=left of start, R=right of start, U=up from start, D=down from start)
-    # @param length: length of ship
-    # @post none
     def createShip(self, startx, starty, orient, length,shipnumber):
+        """Creates a ship object to place on a game board.
+
+        :param startx: the column index in 2D array for start position for placing a ship
+        :type startx: int
+        :param starty: the row index in a 2D array for start position for placing a ship
+        :type starty: int
+        :param orient: the orientation from the start position for building a ship
+        :type orient: string
+        :param length: the size of a ship
+        :type length: int
+        :param shipnumber: the number label used as a symbol to indicate a ship
+        :type shipnumber: int
+        """
         start = 0
         shipcoords=[]
         self.shiplengths.append(length)
@@ -137,6 +135,14 @@ class Board:
         self.points=self.points+1
 
     def hit(self, y, x):
+        """Determines whether entered coordinates hit a ship, and gives
+        feedback on whether ship is hit and if a ship is sunk.
+
+        :param y: the row for the shot location
+        :type y: int
+        :param x: the column for the shot location
+        :type x: int
+        """
         row = len(self.shipObjects)
         temp=self.spots
         for z in range(row):
@@ -156,6 +162,13 @@ class Board:
             self.oppGrid[y][x] = "m"
 
     def score(self,opp):
+        """Keeps track of the ships remaining for each player, and
+        determines when all ships are sunk for a player, and which player won
+
+        :param opp: the opponent's Board object, so it can be compared to self
+        :type opp: a Board object
+
+        """
         print("Player 1 Ships Remaining: "+str(self.points))
         print("Player 2 Ships Remaining: "+str(opp.points))
         if self.points == 0:
