@@ -22,8 +22,7 @@ def setup(board, numberShips):
     for i in range(numberShips):
         start=0
 
-        # Edina: I liked how in Alice's version the checks were split for start x and start y
-        # so user gets feedback for each input -- can fix this later
+        #check for valid column input
         while True:
             startx = input("\nWhat is the starting column of your ship? (A-J)\n")
             startx_num = (ord(startx) % 32) - 1
@@ -34,6 +33,7 @@ def setup(board, numberShips):
             else:
                 print("Please enter only one character.")
 
+        #check for valid row input
         while True:
             starty = input("\nWhat is the starting row of your ship? (1-9)\n")
             if starty.isnumeric():
@@ -41,12 +41,12 @@ def setup(board, numberShips):
                 if starty_num in range(0,9):
                     break
                 else:
-                    print("That's not a valid option! Please enter a num from 1 through 9.")
+                    print("That's not a valid option! Please enter a number from 1 through 9.")
             else:
-                print("That's not a valid option! Please enter a num from 1 through 9.")
+                print("That's not a valid option! Please enter a number from 1 through 9.")
 
         orientation = {'L', 'R', 'U', 'D', 'l', 'r', 'u', 'd'}
-
+        #check for valid orientation
         while True:
             print('What is the orientation of this ship? Enter\n')
             print('"L" for left of start (horizontal ship)\n')
@@ -57,22 +57,22 @@ def setup(board, numberShips):
             orient = orientInput.upper()
             if orientInput in orientation:
                 if orient == 'L':
-                    if 9 - startx_num >= i:
+                    if i-1 <= startx_num:
                         break
                     else:
                         print("The ship will not fit here!")
                 elif orient == 'R':
-                    if i + startx_num >= 9:
+                    if i + startx_num <= 10:
                         break
                     else:
                         print("The ship will not fit here!")
                 elif orient == 'U':
-                    if starty_num - i >= 1:
+                    if i-1 <= starty_num:
                         break
                     else:
                         print("The ship will not fit here!")
                 elif orient == 'D':
-                    if i + starty_num >= 9:
+                    if i + starty_num <= 9:
                         break
                     else:
                         print("The ship will not fit here!")
