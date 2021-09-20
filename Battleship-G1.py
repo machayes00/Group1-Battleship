@@ -5,11 +5,18 @@ import string
 
 '''
 Responsible for executing the game.
-This file creates a game board for each of the players based on user input and places ships accordingly.
-It then plays the game, keeping track of turn counts and win conditions for each player along with displaying
 '''
 
 def setup(board, numberShips):
+    """ Interacts with player to set up a board with ships for a player. Pre - board object
+    must have correct properties; numberShips must be in the proper range, 1 to 6. Post - the
+    input board object is modified according to user input
+
+    :param board: a newly-instantiated blank board object for creating game data for one player
+    :type board: Board
+    :param numberShips: the number of ships that each player will have for a game
+    :type numberShips: int
+    """
     for i in range(numberShips):
         valid = False
         while valid != True:
@@ -68,7 +75,6 @@ def setup(board, numberShips):
                             break
                         else:
                             print("The ship will not fit here!")
-                    # break
                 else:
                     print("Invalid direction for ship.")
 
@@ -80,10 +86,14 @@ def setup(board, numberShips):
                 valid = False
 
 def playGame(boardPlayer1, boardPlayer2):
-    """
-    This method asks players to enter the coordinates for shooting at ships,
+    """Asks players to enter the coordinates for shooting at ships,
     and then calls the board.hits method to check hits and if sunk, and
     calls the the board.score method to keep track of remaining ships.
+
+    :param boardPlayer1: the Board object created for Player 1 by setup method
+    :type boardPlayer1: Board
+    :param boardPlayer2: the Board object created for Player 2 by setup method
+    :type boardPlayer2: Board
     """
     turn=1
     quit= False
@@ -125,8 +135,13 @@ def playGame(boardPlayer1, boardPlayer2):
             turn=turn+1
 
 def printMenu(board1, board2,turn):
-    """
-    Print menu items and boards for the players.
+    """Print menu items and boards for the players.
+    :param board1: board from player 1 passed in from playGame method
+    :type board1: Board
+    :param board2: board for player 2 passed in from playGame method
+    :type board 2: Board
+    :param turn: the turn number, passed in from playGame method
+    :type turn: int
     """
     choice = 0
     if turn % 2 == 1:
@@ -176,16 +191,14 @@ def printMenu(board1, board2,turn):
 
 
 def run():
+    """Starts and ends the game, calling methods as appropriate.
+    """
     stopgame = 0  # variable for giving option to quit game or play again, once a game is over
 
     while stopgame == 0:
 
         print('\n *** WELCOME TO BATTLESHIP!! ***\n')
         print()
-        # Maybe add instructions from George's printMenu here. But our Project 1 instructions
-        # stated that the game should be "obvious" and not need much instrucion. So maybe
-        # it is better if the short prompts for user input, plus feedback to user, will let
-        # the user understand the game.
 
         choice = 0  # bool for marking acceptable choice for numberShips
         while choice == 0:
