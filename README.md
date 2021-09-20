@@ -12,16 +12,16 @@ This game is played through the terminal, with each player taking turns to type 
 
 ### Dependencies
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
+* Python 3.x
 
 ### Installing
 
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+* Clone this file or 
+* Download Battleship-G1.py and Board.py and place them in the same folder. 
 
 ### Executing program
 
+* Navigate to the folder where Battleship-G1.py is located.
 * Run the following command in terminal. 
 
 ```
