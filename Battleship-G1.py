@@ -9,82 +9,76 @@ This file creates a game board for each of the players based on user input and p
 It then plays the game, keeping track of turn counts and win conditions for each player along with displaying
 '''
 
-##  Documentation for setup method
-#   @brief Interacts with player to set up a board with ships for a player
-#   @param board is a Board object for a player
-#   @param numberShips is an int, same for 2 players
-#   @pre board object must have correct properties; numberShips must be
-#       in the proper range, 1 to 6
-#   @post the input board object is modified according to user input
 def setup(board, numberShips):
     for i in range(numberShips):
-        #check for valid column input
-        while True:
-            startx = input("\nWhat is the starting column of ship " + str(i+1) + "? (A-J)\n")
-            startx_num = (ord(startx) % 32) - 1
-            if len(startx) == 1:
-                if startx.isalpha() and startx_num in range(0,10):
-                    break
-                print("That's not a valid option! Please enter a letter between A through J.")
-            else:
-                print("Please enter only one character.")
+        valid = False
+        while valid != True:
+            #check for valid column input
+            while True:
+                startx = input("\nWhat is the starting column of ship " + str(i+1) + "? (A-J)\n")
+                startx_num = (ord(startx) % 32) - 1
+                if len(startx) == 1:
+                    if startx.isalpha() and startx_num in range(0,10):
+                        break
+                    print("That's not a valid option! Please enter a letter between A through J.")
+                else:
+                    print("Please enter only one character.")
 
-        #check for valid row input
-        while True:
-            starty = input("\nWhat is the starting row of ship " + str(i+1) + "? (1-9)\n")
-            if starty.isnumeric():
-                starty_num = int(starty) - 1
-                if starty_num in range(0,9):
-                    break
+            #check for valid row input
+            while True:
+                starty = input("\nWhat is the starting row of ship " + str(i+1) + "? (1-9)\n")
+                if starty.isnumeric():
+                    starty_num = int(starty) - 1
+                    if starty_num in range(0,9):
+                        break
+                    else:
+                        print("That's not a valid option! Please enter a number from 1 through 9.")
                 else:
                     print("That's not a valid option! Please enter a number from 1 through 9.")
+
+            orientation = {'L', 'R', 'U', 'D', 'l', 'r', 'u', 'd'}
+
+            #check for valid orientation
+            while True:
+                print('What is the orientation of this ship? Enter\n')
+                print('"L" for left of start (horizontal ship)\n')
+                print('"R" for right of start (horizontal ship)\n')
+                print('"U" for up from start (vertical ship)\n')
+                print('"D" for down from start (vertical ship)\n')
+                orientInput = input()
+                orient = orientInput.upper()
+                if orientInput in orientation:
+                    if orient == 'L':
+                        if i-1 <= startx_num:
+                            break
+                        else:
+                            print("The ship will not fit here!")
+                    elif orient == 'R':
+                        if i + startx_num <= 10:
+                            break
+                        else:
+                            print("The ship will not fit here!")
+                    elif orient == 'U':
+                        if i-1 <= starty_num:
+                            break
+                        else:
+                            print("The ship will not fit here!")
+                    elif orient == 'D':
+                        if i + starty_num <= 9:
+                            break
+                        else:
+                            print("The ship will not fit here!")
+                    # break
+                else:
+                    print("Invalid direction for ship.")
+
+            if board.isShipValid(orient, startx_num, starty_num, i+1):
+                board.createShip(startx_num, starty_num, orient, i+1, i+1)
+                valid = True
             else:
-                print("That's not a valid option! Please enter a number from 1 through 9.")
+                print("There is already a ship here, please reenter coordinates. ")
+                valid = False
 
-        orientation = {'L', 'R', 'U', 'D', 'l', 'r', 'u', 'd'}
-
-        #check for valid orientation
-        while True:
-            print('What is the orientation of this ship? Enter\n')
-            print('"L" for left of start (horizontal ship)\n')
-            print('"R" for right of start (horizontal ship)\n')
-            print('"U" for up from start (vertical ship)\n')
-            print('"D" for down from start (vertical ship)\n')
-            orientInput = input()
-            orient = orientInput.upper()
-            if orientInput in orientation:
-                if orient == 'L':
-                    if i-1 <= startx_num:
-                        break
-                    else:
-                        print("The ship will not fit here!")
-                elif orient == 'R':
-                    if i + startx_num <= 10:
-                        break
-                    else:
-                        print("The ship will not fit here!")
-                elif orient == 'U':
-                    if i-1 <= starty_num:
-                        break
-                    else:
-                        print("The ship will not fit here!")
-                elif orient == 'D':
-                    if i + starty_num <= 9:
-                        break
-                    else:
-                        print("The ship will not fit here!")
-                # break
-            else:
-                print("Invalid direction for ship.")
-
-        board.createShip(startx_num, starty_num, orient, i+1, i+1)
-
-##  Documentation for playGame method
-#   @brief interacts with both players, and takes their inputs for shooting coordinates
-#   @param boardPlayer1 is a Board object modified by the setup() method
-#   @param boardPlayer2 is a Board object modified by the setup() method
-#   @pre appropriate Board objects must be passed in, after setup() modification
-#   @post none
 def playGame(boardPlayer1, boardPlayer2):
     """
     This method asks players to enter the coordinates for shooting at ships,
@@ -180,9 +174,6 @@ def printMenu(board1, board2,turn):
             else:
                 print("Sorry, invalid choice! Please pick again.\n")
 
-# I like Alice's fix to put the starting part of the program below in its own method, because this
-# facilitates documentation. But it should be called run() not play() because it is weird to have
-# a play() method and a playGame() method. So I changed this back to Alice's format of new method.
 
 def run():
     stopgame = 0  # variable for giving option to quit game or play again, once a game is over

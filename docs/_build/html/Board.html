@@ -38,30 +38,44 @@
 <dt class="sig sig-object py" id="Board.Board">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">Board.</span></span><span class="sig-name descname"><span class="pre">Board</span></span><a class="headerlink" href="#Board.Board" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>This constructs the full board, initialized to be empty of ships.
-It contains a 2D self.waterGrid, waterGrid. Locations marked as ‘0’ are water,
-and these will be changed to S wherever there is a ship, and to * to
-mark locations of hits. The S and * locations are obtained from two lists,
-shipSpots and shots, both of which are initialized to be empty.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Class</dt>
-<dd class="field-odd"><p>Board</p>
-</dd>
-</dl>
+<p>Class for creating components of active player and opponent game boards
+and changing or checking the characteristics of the boards and displaying them.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Board.Board.checkShipOverlap">
-<span class="sig-name descname"><span class="pre">checkShipOverlap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">len</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Board.Board.checkShipOverlap" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">checkShipOverlap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">len</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orient</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Board.Board.checkShipOverlap" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Board.Board.createShip">
 <span class="sig-name descname"><span class="pre">createShip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">startx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">starty</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orient</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shipnumber</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Board.Board.createShip" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Creates a ship object to place on a game board.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>startx</strong> (<em>int</em>) – the column index in 2D array for start position for placing a ship</p></li>
+<li><p><strong>starty</strong> (<em>int</em>) – the row index in a 2D array for start position for placing a ship</p></li>
+<li><p><strong>orient</strong> (<em>string</em>) – the orientation from the start position for building a ship</p></li>
+<li><p><strong>length</strong> (<em>int</em>) – the size of a ship</p></li>
+<li><p><strong>shipnumber</strong> (<em>int</em>) – the number label used as a symbol to indicate a ship</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Board.Board.hit">
 <span class="sig-name descname"><span class="pre">hit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Board.Board.hit" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Determines whether entered coordinates hit a ship, and gives
+feedback on whether ship is hit and if a ship is sunk.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y</strong> (<em>int</em>) – the row for the shot location</p></li>
+<li><p><strong>x</strong> (<em>int</em>) – the column for the shot location</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Board.Board.isShipValid">
@@ -71,20 +85,30 @@ shipSpots and shots, both of which are initialized to be empty.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="Board.Board.printBoard">
 <span class="sig-name descname"><span class="pre">printBoard</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Board.Board.printBoard" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method prints the waterGrid self.waterGrid with a border to mark coordinates
-(A-J for columns and 1-9 for rows).
-This printed board shows all the ships.</p>
+<dd><p>Prints the active player’s game board with a border to mark coordinates
+(A-J for columns and 1-9 for rows). The printed board shows all the ships
+because it uses the waterGrid 2D array for printing data.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Board.Board.printOpp">
 <span class="sig-name descname"><span class="pre">printOpp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Board.Board.printOpp" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Prints the opponent player’s game board with a border to mark coordinates
+(A-J for columns and 1-9 for rows). The printed board hides all the ships
+because it uses the oppGrid 2D array for printing data.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Board.Board.score">
 <span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Board.Board.score" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Keeps track of the ships remaining for each player, and
+determines when all ships are sunk for a player, and which player won</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>opp</strong> (<em>a Board object</em>) – the opponent’s Board object, so it can be compared to self</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
