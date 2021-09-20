@@ -4,7 +4,9 @@ import string
 
 
 '''
-a short sum of this file here.
+Responsible for executing the game.
+This file creates a game board for each of the players based on user input and places ships accordingly.
+It then plays the game, keeping track of turn counts and win conditions for each player along with displaying 
 '''
 
 ##  Documentation for setup method
@@ -85,7 +87,7 @@ def setup(board, numberShips):
 #   @post none
 def playGame(boardPlayer1, boardPlayer2):
     """
-    Thismethod asks players to enter the coordinates for shooting at ships,
+    This method asks players to enter the coordinates for shooting at ships,
     and then calls the board.hits method to check hits and if sunk, and
     calls the the board.score method to keep track of remaining ships.
     """

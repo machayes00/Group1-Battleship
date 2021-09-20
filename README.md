@@ -1,12 +1,12 @@
-# EECS168 Project 1 - Group 1
+# EECS168 Project 1 Battleship - Group 1
 
 This is project 1 for EECS 168 to build a battleship game. 
 
 ## Battleship
 
-An in-depth paragraph about your project and overview of use.
+Battleship is a two-player, turn-based game where both players secretly place 1 to 6 ships on a 9x10 grid. Each player takes turns to announce where on the opponent's grid they wish to fire. The opponent must announce whether or not one of the ships was hit. The first player to sink all of the opponent's ships wins the game. 
 
-
+This game is played through the terminal, with each player taking turns to type in their commands.
 
 ## Getting Started
 
@@ -22,12 +22,10 @@ An in-depth paragraph about your project and overview of use.
 
 ### Executing program
 
-* How to run the program
-* Step-by-step bullets
-* Run the follow command in terminal. 
+* Run the following command in terminal. 
 
 ```
-python3 Battleship-G1.y
+python3 Battleship-G1.py
 ```
 
 ## Help
@@ -40,10 +38,11 @@ command to run if program contains helper info
 
 ## Authors
 
-Contributors names and contact info
-
-ex. Dominique Pizzie  
-ex. [@DomPizzie](https://twitter.com/dompizzie)
+- Alexander Archer
+- George Blue
+- Alice Chen
+- Edina Harsay
+- Mac Hayes
 
 ## Version History
 
