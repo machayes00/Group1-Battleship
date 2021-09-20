@@ -51,3 +51,4 @@ Inspiration, code snippets, etc.
 * [zenorocha](https://gist.github.com/zenorocha/4526327)
 * https://www.hasbro.com/common/instruct/Battleship.PDF
 * https://github.com/dmoisset/battleship-dojo
+* https://www.sphinx-doc.org/en/master/index.html
