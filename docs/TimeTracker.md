@@ -40,3 +40,4 @@ We estimated it would take around 20 hours overall, or 5-6 person-hours based on
 - 09/11/2021: worked Saturday 8:30-8:50 pm
 - 09/17/2021: Worked Friday 5:00-6:30pm
 - 09/18/2021: Worked Saturday 8:30 am-12:15 pm
+- 09/19/2021: Worked Sunday 1:00am-3:00am
