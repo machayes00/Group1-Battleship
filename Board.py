@@ -1,12 +1,16 @@
 class Board:
+    """
+    This constructs the full board, initialized to be empty of ships.
+    It contains a 2D self.waterGrid, waterGrid. Locations marked as '0' are water,
+    and these will be changed to S wherever there is a ship, and to * to
+    mark locations of hits. The S and * locations are obtained from two lists,
+    shipSpots and shots, both of which are initialized to be empty.
+
+    """
 
     def __init__(self):
         """
-        This constructs the full board, initialized to be empty of ships.
-        It contains a 2D self.waterGrid, waterGrid. Locations marked as '0' are water,
-        and these will be changed to S wherever there is a ship, and to * to
-        mark locations of hits. The S and * locations are obtained from two lists,
-        shipSpots and shots, both of which are initialized to be empty.
+        Constructor
         """
 
         self.shipObjects = [] # this is a list of ship objects. They will be checked to determine which ship is hit, and update ship coord, sunk variables
