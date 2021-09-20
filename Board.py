@@ -152,11 +152,11 @@ class Board:
             self.oppGrid[y][x] = "m"
 
     def score(self,opp):
-        print("Player 1 Ships Remaining:"+str(self.points))
-        print("Player 2 Ships Remaining:"+str(opp.points))
+        print("Player 1 Ships Remaining: "+str(self.points))
+        print("Player 2 Ships Remaining: "+str(opp.points))
         if self.points == 0:
             print("Player 2 Won!")
             self.allsunk=True
         elif opp.points == 0:
             print("Player 1 Won!")
-            opp.allsunk=False
+            opp.allsunk=True

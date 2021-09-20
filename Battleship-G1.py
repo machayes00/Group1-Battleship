@@ -16,8 +16,6 @@ a short sum of this file here.
 #   @post the input board object is modified according to user input
 def setup(board, numberShips):
     for i in range(numberShips):
-        # start=0
-
         #check for valid column input
         while True:
             startx = input("\nWhat is the starting column of ship " + str(i) + "? (A-J)\n")
@@ -42,6 +40,7 @@ def setup(board, numberShips):
                 print("That's not a valid option! Please enter a number from 1 through 9.")
 
         orientation = {'L', 'R', 'U', 'D', 'l', 'r', 'u', 'd'}
+
         #check for valid orientation
         while True:
             print('What is the orientation of this ship? Enter\n')
@@ -109,7 +108,7 @@ def playGame(boardPlayer1, boardPlayer2):
                 else:
                     print("Please enter a valid column. (A-J)")
 
-            #check for valid row inpu
+            #check for valid row input
             while True:
                 yhit = input("\nWhat row?\n")
                 if yhit.isnumeric():
@@ -199,7 +198,6 @@ def run():
         while choice == 0:
             print('How many ships per player for this game?\n')
             numberShips = input('Enter a number from 1 to 6:\n')
-            # print()
             if numberShips.isnumeric():
                 ship_num = int(numberShips)
                 if ship_num in range(1, 7):
@@ -208,13 +206,6 @@ def run():
                     print("Please enter a number between 1 and 6!\n")
             else:
                 print("Please enter a valid ship number.\n")
-
-            # numberShips = int(input())
-
-            # if numberShips in range(1, 7):
-            #     choice = 1
-            # else:
-            #     print("Please enter a valid ship number.\n")
 
         # Create a board object for player 1
         boardPlayer1 = Board()
@@ -249,4 +240,5 @@ def run():
             else:
                 print("\nInvalid Input.")
 
+#runs game
 run()
