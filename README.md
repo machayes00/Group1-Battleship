@@ -1,10 +1,10 @@
-# EECS168 Project 1 - Battleship
+# EECS448 Project 1 - Battleship
 
-This is a project for EECS 168. The purpose of this project is to build a battleship game. 
+This is a project for EECS 448. The purpose of this project is to build a battleship game.
 
 ## Battleship
 
-Battleship is a two-player, turn-based game where both players secretly place 1 to 6 ships on a 9x10 grid. Each player takes turns to announce where on the opponent's grid they wish to fire. The opponent must announce whether or not one of the ships was hit. The first player to sink all of the opponent's ships wins the game. 
+Battleship is a two-player, turn-based game where both players secretly place 1 to 6 ships on a 9x10 grid. Each player takes turns to announce where on the opponent's grid they wish to fire. The opponent must announce whether or not one of the ships was hit. The first player to sink all of the opponent's ships wins the game.
 
 This game is played through the terminal, with each player taking turns to type in their commands.
 
@@ -16,13 +16,13 @@ This game is played through the terminal, with each player taking turns to type 
 
 ### Installing
 
-* Clone this file or 
-* Download Battleship-G1.py and Board.py and place them in the same folder. 
+* Clone this file or
+* Download Battleship-G1.py and Board.py and place them in the same folder.
 
 ### Executing program
 
 * Navigate to the folder where Battleship-G1.py is located.
-* Run the following command in terminal. 
+* Run the following command in terminal.
 
 ```
 python3 Battleship-G1.py
