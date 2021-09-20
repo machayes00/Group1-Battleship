@@ -238,13 +238,15 @@ def run():
         playGame(boardPlayer1, boardPlayer2)
 
         # Once playGame method ends, give players the option to play again rather than exit program.
-        print("\nWould you like to play another game?\n")
-        endgame = input('Enter "Y" for yes, "N" for no:\n')
-        if endgame == "N" or endgame == "n":
-            stopgame = 1
-        # elif input == 'Y' or input == 'y':
-        #     pass
-        # else:
-        #     print("")
+        while True:
+            print("\nWould you like to play another game?\n")
+            endgame = input('Enter "Y" for yes, "N" for no:\n')
+            if endgame == "N" or endgame == "n":
+                stopgame = 1
+                break
+            elif endgame == 'Y' or endgame == 'y':
+                break
+            else:
+                print("\nInvalid Input.")
 
 run()
